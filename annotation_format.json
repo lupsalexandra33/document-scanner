@@ -1,0 +1,17 @@
+{
+  "document_type": null,
+  "fields": {
+    "last_name": null,
+    "first_name": null,
+    "date_of_birth": null,
+    "place_of_birth": null,
+    "date_of_issue": null,
+    "date_of_expiry": null,
+    "issued_by": null,
+    "document_number": null
+  },
+  "validation": {
+    "missing_fields": [],
+    "warnings": []
+  }
+}

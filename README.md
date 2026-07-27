@@ -26,10 +26,13 @@ Sample images shown in `examples/` are included for demonstration only.
 ```
 document-scanner/
 ├── scanner.py              # core pipeline: detect, warp, enhance
+├── extract.py              # OCR pipeline: image, text, fields, JSON
 ├── document_scanner.ipynb  # notebook with step-by-step visualizations
 ├── download_dataset.py     # downloads the MIDV-500 subset
-├── annotation_format.json  # JSON for extracted fields
+├── annotation_format.json  # JSON schema for extracted fields
+├── OCR_limitations.md      # observed OCR limitations
 ├── examples/               # before/after demonstration images
+├── outputs/                # sample JSON outputs from the OCR pipeline
 ├── requirements.txt        # Python dependencies
 └── data/                   # dataset (created by download_dataset.py)
 ```

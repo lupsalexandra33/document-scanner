@@ -8,10 +8,12 @@
     "date_of_issue": null,
     "date_of_expiry": null,
     "issued_by": null,
-    "document_number": null
+    "document_number": null,
+    "personal_number": null
   },
   "validation": {
     "missing_fields": [],
-    "warnings": []
+    "warnings": [],
+    "ocr_confidence": null
   }
 }

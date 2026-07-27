@@ -1,0 +1,23 @@
+{
+  "document_type": "alb_id",
+  "fields": {
+    "last_name": "Sojli",
+    "first_name": "Monika",
+    "date_of_birth": "01.01-1980",
+    "place_of_birth": null,
+    "date_of_issue": "16-06-2004",
+    "date_of_expiry": "15-06-2014",
+    "issued_by": null,
+    "document_number": "I05101999",
+    "personal_number": null
+  },
+  "validation": {
+    "missing_fields": [
+      "place_of_birth",
+      "issued_by",
+      "personal_number"
+    ],
+    "warnings": [],
+    "ocr_confidence": 0.73
+  }
+}

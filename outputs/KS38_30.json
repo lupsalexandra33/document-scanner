@@ -1,0 +1,28 @@
+{
+  "document_type": "rou_drvlic",
+  "fields": {
+    "last_name": null,
+    "first_name": null,
+    "date_of_birth": null,
+    "place_of_birth": null,
+    "date_of_issue": "10.06.2008",
+    "date_of_expiry": "10.08.2018",
+    "issued_by": null,
+    "document_number": "910724120",
+    "personal_number": null
+  },
+  "validation": {
+    "missing_fields": [
+      "last_name",
+      "first_name",
+      "date_of_birth",
+      "place_of_birth",
+      "issued_by",
+      "personal_number"
+    ],
+    "warnings": [
+      "only 2 dates extracted out of 3 expected"
+    ],
+    "ocr_confidence": 0.32
+  }
+}

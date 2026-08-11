@@ -1,14 +1,3 @@
-"""
-docxpand.py — read the DocXPand-25k ground truth.
-
-DocXPand ships one large JSON with an entry per image, containing:
-  - position: the four corners of the document inside the scene, as fractions
-    of the image size (so they scale to any resolution)
-  - fields:   every printed field, with its value and its own corner box
-
-This module loads that file, maps DocXPand's field names onto the names used in
-annotation_format.json, and exposes the ground truth per image.
-"""
 import json
 import os
 

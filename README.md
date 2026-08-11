@@ -140,17 +140,22 @@ document number matched on all 6498 annotated documents.
 **Classic versus pretrained model**, on the same images and the same ground
 truth:
 
+Measured on four card fronts with high detection quality (IoU 0.84–0.95):
+
 | pipeline | correct | wrong | missing | accuracy | avg time |
 |----------|---------|-------|---------|----------|----------|
-| classic (OCR + rules) | 4 | 0 | 7 | 36% | 7 s |
-| Donut (DocVQA) | 1 | 2 | 8 | 9% | 78 s |
+| classic (OCR + rules) | 6 | 2 | 12 | **30%** | 7 s |
+| Donut (DocVQA) | 2 | **18** | 0 | 10% | 181 s |
 
 The hand-written rules beat the pretrained model here, which is the opposite of
-the expected result. The difference in failure behaviour matters as much as the
-accuracy: the classic pipeline made no wrong statements at all, while the model
-answered three times and was wrong twice. Used without fine-tuning, it reads the
-document correctly but attaches values to the wrong fields, asked for a
-surname, it returned the MRZ string.
+the expected result, and the failure behaviour is close to opposite too. The
+classic pipeline either reads a document well or produces nothing at all, it
+was wrong twice and silent twelve times. Donut left nothing empty, getting 18 of
+20 fields wrong, because it has no way to decline a question.
+
+Used without fine-tuning it reads the document correctly but attaches values to
+the wrong fields, asked for a surname it returned the MRZ string, and asked for
+a date of birth it returned the surname.
 
 Full results are in [week3_report.md](week3_report.md) and
 [week4_report.md](week4_report.md), including negative findings: a false

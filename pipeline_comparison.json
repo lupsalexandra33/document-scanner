@@ -1,0 +1,121 @@
+{
+  "rows": [
+    {
+      "file": "000e08e1-c99e-4194-9628-21594a9dd84e-ID_CARD_TD2_A-back.jpg",
+      "classic": {
+        "correct": 2,
+        "wrong": 0,
+        "missing": 1,
+        "seconds": 5.9,
+        "fields": {
+          "date_of_issue": "20.05.2021",
+          "date_of_expiry": "19.05.2031"
+        },
+        "per_field": {
+          "date_of_issue": "correct",
+          "date_of_expiry": "correct",
+          "issued_by": "missing"
+        }
+      },
+      "donut": {
+        "correct": 0,
+        "wrong": 0,
+        "missing": 3,
+        "seconds": 83.8,
+        "fields": {
+          "last_name": "patorte",
+          "date_of_birth": "augerbourg",
+          "document_number": "21"
+        },
+        "per_field": {
+          "date_of_issue": "missing",
+          "date_of_expiry": "missing",
+          "issued_by": "missing"
+        }
+      }
+    },
+    {
+      "file": "000e08e1-c99e-4194-9628-21594a9dd84e-ID_CARD_TD2_A-front.jpg",
+      "classic": {
+        "correct": 0,
+        "wrong": 0,
+        "missing": 5,
+        "seconds": 9.0,
+        "fields": {},
+        "per_field": {
+          "last_name": "missing",
+          "first_name": "missing",
+          "date_of_birth": "missing",
+          "place_of_birth": "missing",
+          "document_number": "missing"
+        }
+      },
+      "donut": {
+        "correct": 1,
+        "wrong": 2,
+        "missing": 2,
+        "seconds": 78.1,
+        "fields": {
+          "last_name": "xq6d4pw948pil5011287",
+          "date_of_birth": "marchal-dubois",
+          "document_number": "xq6d4pw94"
+        },
+        "per_field": {
+          "last_name": "wrong",
+          "first_name": "missing",
+          "date_of_birth": "wrong",
+          "place_of_birth": "missing",
+          "document_number": "correct"
+        }
+      }
+    },
+    {
+      "file": "0019d3ae-2d60-4e68-b326-d0922dd396de-ID_CARD_TD2_A-back.jpg",
+      "classic": {
+        "correct": 2,
+        "wrong": 0,
+        "missing": 1,
+        "seconds": 5.7,
+        "fields": {
+          "date_of_issue": "08.04.2022",
+          "date_of_expiry": "07.04.2032"
+        },
+        "per_field": {
+          "date_of_issue": "correct",
+          "date_of_expiry": "correct",
+          "issued_by": "missing"
+        }
+      },
+      "donut": {
+        "correct": 0,
+        "wrong": 0,
+        "missing": 3,
+        "seconds": 70.9,
+        "fields": {
+          "last_name": "ministere des affairs",
+          "date_of_birth": "07.04.2032",
+          "document_number": "ministure des affairs"
+        },
+        "per_field": {
+          "date_of_issue": "missing",
+          "date_of_expiry": "missing",
+          "issued_by": "missing"
+        }
+      }
+    }
+  ],
+  "totals": {
+    "classic": [
+      4,
+      0,
+      7,
+      20.560251235961914
+    ],
+    "donut": [
+      1,
+      2,
+      8,
+      232.82783460617065
+    ]
+  }
+}

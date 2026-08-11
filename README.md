@@ -7,7 +7,7 @@ OCR, parses the machine-readable zone where one exists, and applies rules to
 extract the fields.
 
 **Pipeline 2 (pretrained model)** hands the whole image to a document-
-understanding model and reads the fields straight out of it — no detection, no
+understanding model and reads the fields straight out of it, no detection, no
 OCR, no rules.
 
 Both write the same JSON schema, so their results can be scored side by side
@@ -79,6 +79,16 @@ python -m venv .venv
 source .venv/bin/activate      # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
+
+On a machine without a GPU, install the CPU build of torch first, it is a much
+smaller download than the default CUDA one:
+
+```bash
+pip install torch --index-url https://download.pytorch.org/whl/cpu
+pip install -r requirements.txt
+```
+
+Pipeline 2 downloads its model (~800 MB) on first use.
 
 ## Usage
 

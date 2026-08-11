@@ -1,0 +1,286 @@
+{
+  "rows": [
+    {
+      "file": "000e08e1-c99e-4194-9628-21594a9dd84e-ID_CARD_TD2_A-back.jpg",
+      "class": "ID_CARD_TD2_A",
+      "detected": false,
+      "method": null,
+      "iou": null,
+      "detect_seconds": 0.01,
+      "ocr_seconds": 5.5,
+      "correct": 2,
+      "wrong": 0,
+      "missing": 1
+    },
+    {
+      "file": "000e08e1-c99e-4194-9628-21594a9dd84e-ID_CARD_TD2_A-front.jpg",
+      "class": "ID_CARD_TD2_A",
+      "detected": false,
+      "method": null,
+      "iou": null,
+      "detect_seconds": 0.001,
+      "ocr_seconds": 7.65,
+      "correct": 0,
+      "wrong": 0,
+      "missing": 5
+    },
+    {
+      "file": "0019d3ae-2d60-4e68-b326-d0922dd396de-ID_CARD_TD2_A-back.jpg",
+      "class": "ID_CARD_TD2_A",
+      "detected": false,
+      "method": null,
+      "iou": null,
+      "detect_seconds": 0.002,
+      "ocr_seconds": 5.13,
+      "correct": 2,
+      "wrong": 0,
+      "missing": 1
+    },
+    {
+      "file": "0019d3ae-2d60-4e68-b326-d0922dd396de-ID_CARD_TD2_A-front.jpg",
+      "class": "ID_CARD_TD2_A",
+      "detected": false,
+      "method": null,
+      "iou": null,
+      "detect_seconds": 0.001,
+      "ocr_seconds": 36.02,
+      "correct": 4,
+      "wrong": 0,
+      "missing": 1
+    },
+    {
+      "file": "0028208a-5452-4d87-825b-8a2e5a22c8d8-ID_CARD_TD2_A-back.jpg",
+      "class": "ID_CARD_TD2_A",
+      "detected": false,
+      "method": null,
+      "iou": null,
+      "detect_seconds": 0.002,
+      "ocr_seconds": 22.59,
+      "correct": 0,
+      "wrong": 0,
+      "missing": 3
+    },
+    {
+      "file": "0028208a-5452-4d87-825b-8a2e5a22c8d8-ID_CARD_TD2_A-front.jpg",
+      "class": "ID_CARD_TD2_A",
+      "detected": true,
+      "method": "minarea",
+      "iou": 0.925,
+      "detect_seconds": 0.003,
+      "ocr_seconds": 4.31,
+      "correct": 0,
+      "wrong": 0,
+      "missing": 5
+    },
+    {
+      "file": "003355cc-3415-45c5-a2f9-cf4e7709b4cf-ID_CARD_TD2_A-back.jpg",
+      "class": "ID_CARD_TD2_A",
+      "detected": false,
+      "method": null,
+      "iou": null,
+      "detect_seconds": 0.003,
+      "ocr_seconds": 1.2,
+      "correct": 2,
+      "wrong": 0,
+      "missing": 1
+    },
+    {
+      "file": "003355cc-3415-45c5-a2f9-cf4e7709b4cf-ID_CARD_TD2_A-front.jpg",
+      "class": "ID_CARD_TD2_A",
+      "detected": false,
+      "method": null,
+      "iou": null,
+      "detect_seconds": 0.002,
+      "ocr_seconds": 11.81,
+      "correct": 0,
+      "wrong": 0,
+      "missing": 5
+    },
+    {
+      "file": "006fc90a-f53c-4a31-ae71-a3fc6e574d1c-ID_CARD_TD2_A-back.jpg",
+      "class": "ID_CARD_TD2_A",
+      "detected": false,
+      "method": null,
+      "iou": null,
+      "detect_seconds": 0.002,
+      "ocr_seconds": 16.78,
+      "correct": 0,
+      "wrong": 0,
+      "missing": 3
+    },
+    {
+      "file": "006fc90a-f53c-4a31-ae71-a3fc6e574d1c-ID_CARD_TD2_A-front.jpg",
+      "class": "ID_CARD_TD2_A",
+      "detected": true,
+      "method": "minarea",
+      "iou": 0.836,
+      "detect_seconds": 0.002,
+      "ocr_seconds": 2.94,
+      "correct": 4,
+      "wrong": 0,
+      "missing": 1
+    },
+    {
+      "file": "00972749-1148-4aeb-adf5-20c953964f6b-ID_CARD_TD2_A-back.jpg",
+      "class": "ID_CARD_TD2_A",
+      "detected": false,
+      "method": null,
+      "iou": null,
+      "detect_seconds": 0.002,
+      "ocr_seconds": 13.12,
+      "correct": 2,
+      "wrong": 0,
+      "missing": 1
+    },
+    {
+      "file": "00972749-1148-4aeb-adf5-20c953964f6b-ID_CARD_TD2_A-front.jpg",
+      "class": "ID_CARD_TD2_A",
+      "detected": true,
+      "method": "minarea",
+      "iou": 0.766,
+      "detect_seconds": 0.002,
+      "ocr_seconds": 18.22,
+      "correct": 0,
+      "wrong": 0,
+      "missing": 5
+    },
+    {
+      "file": "00a50009-a775-404e-836b-69c523f08ee3-ID_CARD_TD2_A-back.jpg",
+      "class": "ID_CARD_TD2_A",
+      "detected": true,
+      "method": "minarea",
+      "iou": 0.877,
+      "detect_seconds": 0.001,
+      "ocr_seconds": 3.82,
+      "correct": 0,
+      "wrong": 0,
+      "missing": 3
+    },
+    {
+      "file": "00a50009-a775-404e-836b-69c523f08ee3-ID_CARD_TD2_A-front.jpg",
+      "class": "ID_CARD_TD2_A",
+      "detected": true,
+      "method": "minarea",
+      "iou": 0.233,
+      "detect_seconds": 0.002,
+      "ocr_seconds": 1.97,
+      "correct": 0,
+      "wrong": 0,
+      "missing": 5
+    },
+    {
+      "file": "00c403a5-1d84-40c7-93c7-be8dc7c97e17-ID_CARD_TD2_A-back.jpg",
+      "class": "ID_CARD_TD2_A",
+      "detected": true,
+      "method": "minarea",
+      "iou": 0.909,
+      "detect_seconds": 0.002,
+      "ocr_seconds": 3.31,
+      "correct": 0,
+      "wrong": 0,
+      "missing": 3
+    },
+    {
+      "file": "00c403a5-1d84-40c7-93c7-be8dc7c97e17-ID_CARD_TD2_A-front.jpg",
+      "class": "ID_CARD_TD2_A",
+      "detected": true,
+      "method": "minarea",
+      "iou": 0.847,
+      "detect_seconds": 0.002,
+      "ocr_seconds": 16.68,
+      "correct": 0,
+      "wrong": 0,
+      "missing": 5
+    },
+    {
+      "file": "00e5229b-42de-4728-82cb-e27726eed99b-ID_CARD_TD2_A-back.jpg",
+      "class": "ID_CARD_TD2_A",
+      "detected": false,
+      "method": null,
+      "iou": null,
+      "detect_seconds": 0.002,
+      "ocr_seconds": 7.48,
+      "correct": 2,
+      "wrong": 0,
+      "missing": 1
+    },
+    {
+      "file": "00e5229b-42de-4728-82cb-e27726eed99b-ID_CARD_TD2_A-front.jpg",
+      "class": "ID_CARD_TD2_A",
+      "detected": true,
+      "method": "contour",
+      "iou": 0.948,
+      "detect_seconds": 0.002,
+      "ocr_seconds": 1.6,
+      "correct": 2,
+      "wrong": 2,
+      "missing": 1
+    },
+    {
+      "file": "010a1d73-1682-4e2f-8203-42c158fdb0fa-ID_CARD_TD2_A-back.jpg",
+      "class": "ID_CARD_TD2_A",
+      "detected": false,
+      "method": null,
+      "iou": null,
+      "detect_seconds": 0.003,
+      "ocr_seconds": 12.52,
+      "correct": 2,
+      "wrong": 0,
+      "missing": 1
+    },
+    {
+      "file": "010a1d73-1682-4e2f-8203-42c158fdb0fa-ID_CARD_TD2_A-front.jpg",
+      "class": "ID_CARD_TD2_A",
+      "detected": false,
+      "method": null,
+      "iou": null,
+      "detect_seconds": 0.003,
+      "ocr_seconds": 14.41,
+      "correct": 3,
+      "wrong": 1,
+      "missing": 1
+    }
+  ],
+  "field_stats": {
+    "date_of_issue": {
+      "correct": 6,
+      "wrong": 0,
+      "missing": 4
+    },
+    "date_of_expiry": {
+      "correct": 6,
+      "wrong": 0,
+      "missing": 4
+    },
+    "issued_by": {
+      "correct": 0,
+      "wrong": 0,
+      "missing": 10
+    },
+    "last_name": {
+      "correct": 4,
+      "wrong": 0,
+      "missing": 6
+    },
+    "first_name": {
+      "correct": 3,
+      "wrong": 1,
+      "missing": 6
+    },
+    "date_of_birth": {
+      "correct": 4,
+      "wrong": 0,
+      "missing": 6
+    },
+    "place_of_birth": {
+      "correct": 0,
+      "wrong": 0,
+      "missing": 10
+    },
+    "document_number": {
+      "correct": 2,
+      "wrong": 2,
+      "missing": 6
+    }
+  }
+}

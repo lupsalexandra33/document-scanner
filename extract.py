@@ -75,6 +75,7 @@ def process_document(image_path, variant=DEFAULT_VARIANT):
 
     dates = sorted(set(dates), key=parse_year)
     date_of_birth, date_of_issue, date_of_expiry = assign_dates(dates)
+    last_name = first_name = None
 
     fields = {
         "last_name": last_name,

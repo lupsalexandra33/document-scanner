@@ -1,0 +1,36 @@
+{
+  "document_type": null,
+  "fields": {
+    "last_name": "xq6d4pw948pil5011287",
+    "first_name": "idpilmarchal",
+    "date_of_birth": "marchal-dubois",
+    "place_of_birth": "mineral club",
+    "date_of_issue": "marchal-dubots",
+    "date_of_expiry": "marchal-dubois",
+    "issued_by": "mineral-dubois",
+    "document_number": "xq6d4pw94",
+    "personal_number": null
+  },
+  "validation": {
+    "missing_fields": [
+      "personal_number"
+    ],
+    "warnings": [],
+    "ocr_confidence": null
+  },
+  "model": {
+    "name": "naver-clova-ix/donut-base-finetuned-docvqa",
+    "questions_asked": 8,
+    "seconds": 176.0,
+    "raw_answers": {
+      "last_name": "xq6d4pw948pil5011287",
+      "first_name": "idpilmarchal",
+      "date_of_birth": "marchal-dubois",
+      "place_of_birth": "mineral club",
+      "date_of_issue": "marchal-dubots",
+      "date_of_expiry": "marchal-dubois",
+      "issued_by": "mineral-dubois",
+      "document_number": "xq6d4pw94"
+    }
+  }
+}

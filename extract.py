@@ -1,162 +1,153 @@
-from easyocr import Reader
-import cv2
-import scanner
-import re
+import argparse
 import json
+import os
+import re
 
-# load the OCR reader
+import cv2
+from easyocr import Reader
+
+import mrz as mrz_module
+import preprocessing
+import validation
+
 reader = Reader(["en"], gpu=False)
+
+DEFAULT_VARIANT = "warped"
+
+DATE_PATTERN = r'\d{2}[.\-]\d{2}[.\-]\d{4}'
+DOCNUM_PATTERN = r'[A-Z0-9]\d{8}'
+CNP_PATTERN = r'\d{13}'
+DOCNUM_MIN_CONFIDENCE = 0.4
+
 
 def parse_year(date_str):
     return int(date_str[-4:])
 
-def is_valid_date(date_str):
-    # split on either '.' or '-'
-    parts = re.split(r'[.\-]', date_str)
-    if len(parts) != 3:
-        return False
-    day, month, year = int(parts[0]), int(parts[1]), int(parts[2])
-    if not (1 <= day <= 31):
-        return False
-    if not (1 <= month <= 12):
-        return False
-    if not (1900 <= year <= 2100):
-        return False
-    return True
 
-def extract_names_albanian(results):
-    candidates = []
-    for (bbox, text, prob) in results:
-        y = int(bbox[0][1])
-        if prob > 0.8 and y < 160 and text.isalpha():
-            candidates.append((y, text))
+def assign_dates(dates):
+    # map an unlabelled list of dates onto birth / issue / expiry.
+    birth = issue = expiry = None
+    if len(dates) == 1:
+        birth = dates[0]
+    elif len(dates) == 2:
+        gap = parse_year(dates[1]) - parse_year(dates[0])
+        if gap <= 15:
+            issue, expiry = dates[0], dates[1]
+        else:
+            birth, expiry = dates[0], dates[1]
+    elif len(dates) >= 3:
+        birth, issue, expiry = dates[0], dates[1], dates[2]
+    return birth, issue, expiry
 
-    candidates.sort()
-
-    last_name = candidates[0][1] if len(candidates) >= 1 else None
-    first_name = candidates[1][1] if len(candidates) >= 2 else None
-    return last_name, first_name
-
-def process_document(image_path):
-    # read the image and run it through the scanner
+def process_document(image_path, variant=DEFAULT_VARIANT):
     image = cv2.imread(image_path)
-    quad = scanner.detect_document(image)
-    warped = scanner.four_point_transform(image, quad) if quad is not None else image
+    if image is None:
+        raise FileNotFoundError(image_path)
 
-    # OCR
-    results = reader.readtext(warped)
+    quad, method = preprocessing.detect_document_improved(image)
+    prepared = preprocessing.PREPROCESSING_VARIANTS[variant](image, quad)
+    results = reader.readtext(prepared)
 
-    # extraction patterns
-    date_pattern = r'\d{2}[.\-]\d{2}[.\-]\d{4}'
-    docnum_pattern = r'[A-Z0-9]\d{8}'
-    # Romanian CNP = 13 digits
-    cnp_pattern = r'\d{13}'
-
-    dates = []
-    doc_numbers = []
-    cnp = None
-    document_type = None
+    dates, doc_numbers, cnp, document_type = [], [], None, None
     min_confidence = 1.0
+    texts = [text for (_, text, _) in results]
 
     for (bbox, text, prob) in results:
-        # dates
-        date_match = re.search(date_pattern, text)
+        date_match = re.search(DATE_PATTERN, text)
         if date_match:
             dates.append(date_match.group())
             min_confidence = min(min_confidence, prob)
 
-        # document number
-        if prob > 0.4:
-            docnum_match = re.search(docnum_pattern, text)
+        if prob > DOCNUM_MIN_CONFIDENCE:
+            docnum_match = re.search(DOCNUM_PATTERN, text)
             if docnum_match:
                 doc_numbers.append(docnum_match.group())
 
-        # CNP (13 digits)
-        cnp_match = re.search(cnp_pattern, text)
+        cnp_match = re.search(CNP_PATTERN, text)
         if cnp_match:
             cnp = cnp_match.group()
 
-        # document type
-        if "ROMANIA" in text.upper():
+        upper = text.upper()
+        if "ROMANIA" in upper:
             document_type = "rou_drvlic"
-        elif "ALBANIAN" in text.upper():
+        elif "ALBANIAN" in upper:
             document_type = "alb_id"
 
-    # assign the dates to fields (by year)
     dates = sorted(set(dates), key=parse_year)
+    date_of_birth, date_of_issue, date_of_expiry = assign_dates(dates)
 
-    date_of_birth = None
-    date_of_issue = None
-    date_of_expiry = None
+    fields = {
+        "last_name": last_name,
+        "first_name": first_name,
+        "date_of_birth": date_of_birth,
+        "place_of_birth": None,
+        "date_of_issue": date_of_issue,
+        "date_of_expiry": date_of_expiry,
+        "issued_by": None,
+        "document_number": doc_numbers[0] if doc_numbers else None,
+        "personal_number": cnp,
+    }
 
-    if len(dates) == 1:
-        date_of_birth = dates[0]
-    elif len(dates) == 2:
-        gap = parse_year(dates[1]) - parse_year(dates[0])
-        if gap <= 15:
-            date_of_issue = dates[0]
-            date_of_expiry = dates[1]
-        else:
-            date_of_birth = dates[0]
-            date_of_expiry = dates[1]
-    elif len(dates) >= 3:
-        date_of_birth = dates[0]
-        date_of_issue = dates[1]
-        date_of_expiry = dates[2]
+    # MRZ
+    mrz_lines = mrz_module.find_mrz_lines(texts)
+    mrz_data = mrz_module.parse(mrz_lines) if mrz_lines else None
+    mrz_conflicts = []
 
-    # names, only for the Albanian ID
-    last_name = None
-    first_name = None
-    if document_type == "alb_id":
-        last_name, first_name = extract_names_albanian(results)
+    if mrz_data:
+        for name, value in mrz_module.to_fields(mrz_data).items():
+            if value is None:
+                continue
+            if fields.get(name) is None:
+                fields[name] = value
+            elif fields[name] != value:
+                mrz_conflicts.append(
+                    f"{name}: printed '{fields[name]}' vs MRZ '{value}'")
 
-    # JSON structure
-    output = {
+    ocr_confidence = min_confidence if dates else None
+    validation_block = validation.validate(fields, ocr_confidence)
+
+    if len(dates) < 3:
+        validation_block["warnings"].append(
+            f"only {len(dates)} dates extracted out of 3 expected")
+    validation_block["warnings"] += mrz_conflicts
+
+    if mrz_data:
+        failed = [k for k, v in mrz_data["checks"].items() if v is False]
+        if failed:
+            validation_block["warnings"].append(
+                f"MRZ check digit failed for: {', '.join(failed)}")
+
+    return {
         "document_type": document_type,
-        "fields": {
-            "last_name": last_name,
-            "first_name": first_name,
-            "date_of_birth": date_of_birth,
-            "place_of_birth": None,
-            "date_of_issue": date_of_issue,
-            "date_of_expiry": date_of_expiry,
-            "issued_by": None,
-            "document_number": doc_numbers[0] if doc_numbers else None,
-            "personal_number": cnp,
+        "fields": fields,
+        "validation": validation_block,
+        "mrz": {
+            "found": mrz_data is not None,
+            "format": mrz_data["format"] if mrz_data else None,
+            "check_digits": mrz_data["checks"] if mrz_data else None,
         },
-        "validation": {
-            "missing_fields": [],
-            "warnings": [],
-            "ocr_confidence": round(min_confidence, 2) if dates else None,
+        "processing": {
+            "detection_method": method,
+            "document_detected": quad is not None,
+            "preprocessing_variant": variant,
         },
     }
 
-    # missing fields
-    for field_name, value in output["fields"].items():
-        if value is None:
-            output["validation"]["missing_fields"].append(field_name)
-
-    # date format, check each extracted date is a real calendar date
-    for field in ["date_of_birth", "date_of_issue", "date_of_expiry"]:
-        value = output["fields"][field]
-        if value is not None and not is_valid_date(value):
-            output["validation"]["warnings"].append(f"{field}: '{value}' is not a valid date")
-
-    # CNP length
-    if cnp is not None and len(cnp) != 13:
-        output["validation"]["warnings"].append(f"personal_number: expected 13 digits, got {len(cnp)}")
-
-    # how many dates were found vs expected
-    if len(dates) < 3:
-        output["validation"]["warnings"].append(f"only {len(dates)} dates extracted out of 3 expected")
-
-    return output
 
 if __name__ == "__main__":
-    result = process_document("data/38_rou_drvlic/images/TA/TA38_25.tif")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("image")
+    parser.add_argument("--variant", default=DEFAULT_VARIANT,
+                        choices=list(preprocessing.PREPROCESSING_VARIANTS))
+    parser.add_argument("--out", default=None)
+    args = parser.parse_args()
 
+    result = process_document(args.image, variant=args.variant)
     print(json.dumps(result, indent=2, ensure_ascii=False))
 
-    with open("output.json", "w", encoding="utf-8") as f:
+    base = os.path.splitext(os.path.basename(args.image))[0]
+    out_path = args.out or f"outputs/{base}.json"
+    os.makedirs(os.path.dirname(out_path), exist_ok=True)
+    with open(out_path, "w", encoding="utf-8") as f:
         json.dump(result, f, indent=2, ensure_ascii=False)
-    print("\nsaved to output.json")
+    print(f"\nsaved to {out_path}")

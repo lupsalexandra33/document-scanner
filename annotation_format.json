@@ -15,5 +15,15 @@
     "missing_fields": [],
     "warnings": [],
     "ocr_confidence": null
+  },
+  "mrz": {
+    "found": null,
+    "format": null,
+    "check_digits": null
+  },
+  "processing": {
+    "detection_method": null,
+    "document_detected": null,
+    "preprocessing_variant": null
   }
 }

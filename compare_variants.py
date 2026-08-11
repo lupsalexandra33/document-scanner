@@ -1,17 +1,5 @@
 """
-compare_variants.py — compare preprocessing variants on the same images.
-
-Week 2 fed OCR a single preprocessing variant. The spec asks for a comparison
-of several, so this script runs the same OCR over every variant defined in
-preprocessing.PREPROCESSING_VARIANTS and reports, per variant:
-
-  - how many text regions the OCR engine found
-  - how many of those it was confident about (>= 0.5)
-  - the mean confidence
-  - how many of the target fields the extraction rules recovered
-  - the runtime
-
-    python compare_variants.py                       uses a small default set
+    python compare_variants.py      uses a small default set
     python compare_variants.py --data data --limit 6
 """
 import argparse

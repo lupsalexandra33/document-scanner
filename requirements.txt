@@ -4,3 +4,7 @@ pillow
 matplotlib
 python-dateutil
 easyocr
+transformers
+torch
+sentencepiece
+protobuf

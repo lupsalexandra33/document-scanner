@@ -1,8 +1,17 @@
 # Document Scanner
 
-A pipeline for reading identity documents: it locates the document in a photo,
-corrects its perspective, runs OCR, parses the machine-readable zone where one
-exists, and extracts the fields into a validated JSON.
+Two pipelines for reading identity documents, built to be compared.
+
+**Pipeline 1 (classic)** locates the document, corrects its perspective, runs
+OCR, parses the machine-readable zone where one exists, and applies rules to
+extract the fields.
+
+**Pipeline 2 (pretrained model)** hands the whole image to a document-
+understanding model and reads the fields straight out of it — no detection, no
+OCR, no rules.
+
+Both write the same JSON schema, so their results can be scored side by side
+against the same ground truth.
 
 ## Datasets
 
@@ -41,21 +50,25 @@ stored in this repository.
 document-scanner/
 ├── scanner.py               # geometric pipeline: detect, warp, enhance
 ├── preprocessing.py         # improved detector + preprocessing variants
-├── extract.py               # main pipeline: image -> OCR -> fields -> JSON
+├── extract.py               # pipeline 1: image -> OCR -> rules -> JSON
+├── donut_pipeline.py        # pipeline 2: image -> pretrained model -> JSON
 ├── mrz.py                   # machine-readable zone: parsing + check digits
 ├── validation.py            # validation rules (separate module)
 ├── docxpand.py              # reads the DocXPand ground truth
 ├── evaluate.py              # detection metrics on MIDV
 ├── evaluate_docxpand.py     # IoU + field accuracy against ground truth
 ├── compare_variants.py      # compares preprocessing variants for OCR
+├── compare_pipelines.py     # runs both pipelines and scores them together
 ├── download_docxpand.py     # streams a DocXPand subset
 ├── download_dataset.py      # downloads the MIDV-500 subset
 ├── document_scanner.ipynb   # notebook: the geometric stage, step by step
 ├── annotation_format.json   # JSON schema for extracted fields
 ├── OCR_limitations.md       # OCR limitations observed in week 2
 ├── week3_report.md          # robustness, MRZ and measurement results
+├── week4_report.md          # pretrained model results and comparison
 ├── examples/                # before/after demonstration images
-├── outputs/                 # sample JSON outputs
+├── outputs/                 # sample JSON outputs (pipeline 1)
+├── outputs_donut/           # sample JSON outputs (pipeline 2)
 └── data/                    # datasets (git-ignored, created by the scripts)
 ```
 
@@ -72,9 +85,14 @@ pip install -r requirements.txt
 Extract fields from one image:
 
 ```bash
-python3 extract.py path/to/image.jpg
+python3 extract.py path/to/image.jpg                   # pipeline 1
 python3 extract.py path/to/image.jpg --variant raw     # choose a variant
+python3 donut_pipeline.py path/to/image.jpg            # pipeline 2
 ```
+
+Pipeline 2 asks the model one question per field, and each question is a
+separate forward pass, about 25 seconds each on CPU. Use `--fields` to limit
+which ones are asked.
 
 Measure the pipeline:
 
@@ -82,6 +100,7 @@ Measure the pipeline:
 python3 evaluate_docxpand.py --detection-only    # geometry only, fast
 python3 evaluate_docxpand.py --limit 20          # full pipeline with OCR
 python3 evaluate.py --detection-only             # detection on MIDV
+python3 compare_pipelines.py --limit 3           # both pipelines, same images
 ```
 
 ## Results
@@ -100,7 +119,7 @@ The gates matter: without them a looser fallback reported 12/14, but several of
 those "detections" were the whole frame rather than the document.
 
 **Field extraction** on DocXPand: 31% of fields correct, 4% wrong, 65% missing.
-The low error rate is deliberate — the pipeline prefers to report nothing over
+The low error rate is deliberate, the pipeline prefers to report nothing over
 reporting a wrong value. Most correct values come from the MRZ rather than from
 positional rules.
 
@@ -108,7 +127,23 @@ positional rules.
 misread can be detected rather than assumed. Validated against ground truth, the
 document number matched on all 6498 annotated documents.
 
-Full results, including two negative findings — a false positive on a background
-object, and perspective correction slightly *reducing* accuracy on DocXPand —
-are in [week3_report.md](week3_report.md). OCR limitations observed earlier are
-in [OCR_limitations.md](OCR_limitations.md).
+**Classic versus pretrained model**, on the same images and the same ground
+truth:
+
+| pipeline | correct | wrong | missing | accuracy | avg time |
+|----------|---------|-------|---------|----------|----------|
+| classic (OCR + rules) | 4 | 0 | 7 | 36% | 7 s |
+| Donut (DocVQA) | 1 | 2 | 8 | 9% | 78 s |
+
+The hand-written rules beat the pretrained model here, which is the opposite of
+the expected result. The difference in failure behaviour matters as much as the
+accuracy: the classic pipeline made no wrong statements at all, while the model
+answered three times and was wrong twice. Used without fine-tuning, it reads the
+document correctly but attaches values to the wrong fields, asked for a
+surname, it returned the MRZ string.
+
+Full results are in [week3_report.md](week3_report.md) and
+[week4_report.md](week4_report.md), including negative findings: a false
+positive on a background object, and perspective correction slightly *reducing*
+accuracy on DocXPand. OCR limitations observed earlier are in
+[OCR_limitations.md](OCR_limitations.md).

@@ -2,14 +2,26 @@ import cv2
 import numpy as np
 import scanner
 
-# ID-1 card format (85.6 x 54 mm) -> expected aspect ratio of a straightened card
-ID_ASPECT_RATIO = 85.6 / 54.0     # 1.585
+# ID-1 card format
+ID_ASPECT_RATIO = 85.6 / 54.0
+MAX_OCR_PIXELS = 2_000_000
+
+
+def cap_size(image, max_pixels=MAX_OCR_PIXELS):
+    # shrink an image if it exceeds max_pixels, preserving aspect ratio
+    height, width = image.shape[:2]
+    pixels = height * width
+    if pixels <= max_pixels:
+        return image
+    scale = (max_pixels / pixels) ** 0.5
+    return cv2.resize(image, (max(1, int(width * scale)),
+                              max(1, int(height * scale))),
+                      interpolation=cv2.INTER_AREA)
 
 
 def quad_is_plausible(quad, image_shape, min_frac=0.06, max_frac=0.90,
                       aspect_tolerance=0.45):
-    """Reject detections that cannot be a document."""
-
+    # reject detections that cannot be a document
     q = quad.reshape(4, 2).astype("float32")
     frac = cv2.contourArea(q) / (image_shape[0] * image_shape[1])
     if not (min_frac < frac < max_frac):
@@ -31,7 +43,6 @@ def quad_is_plausible(quad, image_shape, min_frac=0.06, max_frac=0.90,
 def detect_document_improved(image, resize_height=500, area_frac=0.08,
                              morph_close=True, use_fallback=True):
     # improved document detection
-
     ratio = image.shape[0] / float(resize_height)
     small = cv2.resize(image, (int(image.shape[1] / ratio), resize_height))
 
@@ -44,7 +55,7 @@ def detect_document_improved(image, resize_height=500, area_frac=0.08,
     cnts = sorted(cnts, key=cv2.contourArea, reverse=True)[:6]
     img_area = small.shape[0] * small.shape[1]
 
-    # pass 1: a clean quadrilateral contour
+    # pass 1: a clean quadrilateral contour (same idea as the baseline)
     for c in cnts:
         approx = cv2.approxPolyDP(c, 0.02 * cv2.arcLength(c, True), True)
         if len(approx) == 4 and cv2.contourArea(c) > area_frac * img_area:
@@ -63,17 +74,16 @@ def detect_document_improved(image, resize_height=500, area_frac=0.08,
     return None, None
 
 # OCR input variants, used by evaluate.py to compare which one OCR reads best
-
 def variant_raw(image, quad):
-    # no geometric correction at all, the original frame
-    return image
+    # no geometric correction at all: the original frame, size-capped
+    return cap_size(image)
 
 
 def variant_warped(image, quad):
     # perspective-corrected document, still in colour
     if quad is None:
-        return image
-    return scanner.four_point_transform(image, quad)
+        return cap_size(image)
+    return cap_size(scanner.four_point_transform(image, quad))
 
 
 def variant_binarized(image, quad):
@@ -82,10 +92,11 @@ def variant_binarized(image, quad):
 
 
 def variant_upscaled(image, quad, factor=3):
-    # perspective-corrected then upscaled, larger glyphs for the OCR engine
+    # perspective-corrected then upscaled
     warped = variant_warped(image, quad)
-    return cv2.resize(warped, None, fx=factor, fy=factor,
-                      interpolation=cv2.INTER_CUBIC)
+    upscaled = cv2.resize(warped, None, fx=factor, fy=factor,
+                          interpolation=cv2.INTER_CUBIC)
+    return cap_size(upscaled)
 
 
 def variant_clahe_only(image, quad):

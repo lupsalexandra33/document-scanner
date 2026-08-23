@@ -1,0 +1,87 @@
+{
+  "document_type": null,
+  "fields": {
+    "last_name": "MARY KNICOLAS MARTINKEMILE ALFRED",
+    "first_name": null,
+    "date_of_birth": "18.10.1943",
+    "place_of_birth": null,
+    "date_of_issue": "17.05.2017",
+    "date_of_expiry": "16.05.2027",
+    "issued_by": null,
+    "document_number": "ZDOA9FJ2O",
+    "personal_number": null
+  },
+  "validation": {
+    "missing_fields": [
+      "first_name",
+      "place_of_birth",
+      "issued_by",
+      "personal_number"
+    ],
+    "warnings": [
+      "MRZ check digit failed for: document_number"
+    ],
+    "ocr_confidence": 0.74
+  },
+  "ocr_texts": [
+    "PASSEPORT",
+    "REPUBLIQUE DE GALATHEE",
+    "PASSPORT",
+    "Type / Iype",
+    "Code du pays / Country code",
+    "Passeport n\"",
+    "Passport no",
+    "GAL",
+    "ZDOA9FJ2O",
+    "Nom",
+    "Surname (1)",
+    "Mary",
+    "fictive",
+    "Prenoms / Given names (2)",
+    "Nicolas, Martin, Emile, Alfred",
+    "Nationalite / Natlonality (3)",
+    "Sexe / Sex",
+    "Taille /Height (12)",
+    "Couleur",
+    "des yeux / Color of eyes (1",
+    "GAL",
+    "185 cm",
+    "MARRON",
+    "Date de naissance / Date of blnth (4)",
+    "Lieu de naissance",
+    "Place of birth (6)",
+    "18.10.1943",
+    "Schneider-sur-Mer (31)",
+    "Date de delivrance / Date of issue (7)",
+    "17.05.2017",
+    "Autorite",
+    "Authority (9)",
+    "Domicile",
+    "Residence (11)",
+    "21,rue Blanc",
+    "Sous-prefecture de Sainte Tristan-la",
+    "36128 Bergerbourg",
+    "Date",
+    "dexpiration",
+    "Date of explry (8)",
+    "16.05.2027",
+    "P<GALMARY<KNICOLAS<MARTINKEMILE<ALFRED<<<<<<",
+    "ZDOA9FJ2O5GAL4310189M2705169<<<<<<<<<<<<6",
+    "Piece",
+    "ly/g8sf"
+  ],
+  "mrz": {
+    "found": true,
+    "format": "TD3",
+    "check_digits": {
+      "document_number": false,
+      "birth_date": true,
+      "expiry_date": true
+    }
+  },
+  "processing": {
+    "detection_method": null,
+    "document_detected": false,
+    "preprocessing_variant": "warped"
+  }
+}

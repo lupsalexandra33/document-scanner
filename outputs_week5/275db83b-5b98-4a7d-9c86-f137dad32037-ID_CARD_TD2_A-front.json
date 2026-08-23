@@ -1,0 +1,60 @@
+{
+  "document_type": null,
+  "fields": {
+    "last_name": null,
+    "first_name": null,
+    "date_of_birth": null,
+    "place_of_birth": null,
+    "date_of_issue": null,
+    "date_of_expiry": null,
+    "issued_by": null,
+    "document_number": null,
+    "personal_number": null
+  },
+  "validation": {
+    "missing_fields": [
+      "last_name",
+      "first_name",
+      "date_of_birth",
+      "place_of_birth",
+      "date_of_issue",
+      "date_of_expiry",
+      "issued_by",
+      "document_number",
+      "personal_number"
+    ],
+    "warnings": [
+      "only 0 dates extracted out of 3 expected"
+    ],
+    "ocr_confidence": null
+  },
+  "ocr_texts": [
+    ">",
+    "0",
+    "8",
+    "7",
+    "3",
+    "1",
+    "2",
+    "5",
+    "L",
+    "0",
+    "1",
+    "2",
+    "8",
+    "0",
+    "2",
+    "0",
+    "6"
+  ],
+  "mrz": {
+    "found": false,
+    "format": null,
+    "check_digits": null
+  },
+  "processing": {
+    "detection_method": "minarea",
+    "document_detected": true,
+    "preprocessing_variant": "warped"
+  }
+}

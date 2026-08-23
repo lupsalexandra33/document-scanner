@@ -1,0 +1,70 @@
+{
+  "document_type": null,
+  "fields": {
+    "last_name": null,
+    "first_name": null,
+    "date_of_birth": "45.01.2003",
+    "place_of_birth": null,
+    "date_of_issue": null,
+    "date_of_expiry": null,
+    "issued_by": null,
+    "document_number": null,
+    "personal_number": null
+  },
+  "validation": {
+    "missing_fields": [
+      "last_name",
+      "first_name",
+      "place_of_birth",
+      "date_of_issue",
+      "date_of_expiry",
+      "issued_by",
+      "document_number",
+      "personal_number"
+    ],
+    "warnings": [
+      "date_of_birth: '45.01.2003' is not a valid date",
+      "low OCR confidence (0.30) — fields may be unreliable",
+      "only 1 dates extracted out of 3 expected"
+    ],
+    "ocr_confidence": 0.3
+  },
+  "ocr_texts": [
+    "REP U_BL1Q U E   D U  P 1 L E",
+    "A",
+    "CARTE NATIONALE DIDENTITE N\" : PXST2IL33",
+    "Nationalite Pileane",
+    "LD",
+    "Nom : Lefevre-Albert",
+    "Piece",
+    "t",
+    "Prenom(s)",
+    "Denise",
+    "Sexe",
+    "Nefe) le",
+    "45.01.2003",
+    "A : Vidaldan",
+    "Tp",
+    "Taille",
+    "1.62",
+    "m",
+    "Tp",
+    "Signature du titulaire",
+    "Fe AAPqlBt",
+    "IDPILLEFEVRE<ALBERT<<DENISE<<<<<C",
+    "<<<",
+    "fictive",
+    "lylg8sf",
+    "an (44)"
+  ],
+  "mrz": {
+    "found": false,
+    "format": null,
+    "check_digits": null
+  },
+  "processing": {
+    "detection_method": "minarea",
+    "document_detected": true,
+    "preprocessing_variant": "warped"
+  }
+}

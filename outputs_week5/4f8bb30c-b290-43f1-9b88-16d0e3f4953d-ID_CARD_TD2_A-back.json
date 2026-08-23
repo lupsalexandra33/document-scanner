@@ -1,0 +1,60 @@
+{
+  "document_type": null,
+  "fields": {
+    "last_name": null,
+    "first_name": null,
+    "date_of_birth": null,
+    "place_of_birth": null,
+    "date_of_issue": "25.08.2016",
+    "date_of_expiry": "24.08.2026",
+    "issued_by": null,
+    "document_number": null,
+    "personal_number": null
+  },
+  "validation": {
+    "missing_fields": [
+      "last_name",
+      "first_name",
+      "date_of_birth",
+      "place_of_birth",
+      "issued_by",
+      "document_number",
+      "personal_number"
+    ],
+    "warnings": [
+      "only 2 dates extracted out of 3 expected"
+    ],
+    "ocr_confidence": 0.5
+  },
+  "ocr_texts": [
+    "Adresse",
+    "838 rue",
+    "Guyon",
+    "Immeuble Moulin",
+    "87716 Guilbert",
+    "D0",
+    "Carte valable jusqu au :",
+    "24.08.2026",
+    "delivree le",
+    "25.08.2016",
+    "par",
+    "Ministere des affaires etrangeres",
+    "Signature de 1 autorite",
+    "Tp",
+    "Miniatetredez",
+    "fictive",
+    "Piece",
+    "t.ly/g8sf",
+    "Af3aitea"
+  ],
+  "mrz": {
+    "found": false,
+    "format": null,
+    "check_digits": null
+  },
+  "processing": {
+    "detection_method": null,
+    "document_detected": false,
+    "preprocessing_variant": "warped"
+  }
+}

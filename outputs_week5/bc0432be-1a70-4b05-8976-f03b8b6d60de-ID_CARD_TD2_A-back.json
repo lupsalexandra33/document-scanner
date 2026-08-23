@@ -1,0 +1,58 @@
+{
+  "document_type": null,
+  "fields": {
+    "last_name": null,
+    "first_name": null,
+    "date_of_birth": null,
+    "place_of_birth": null,
+    "date_of_issue": "25.06.2017",
+    "date_of_expiry": "24.06.2027",
+    "issued_by": null,
+    "document_number": null,
+    "personal_number": null
+  },
+  "validation": {
+    "missing_fields": [
+      "last_name",
+      "first_name",
+      "date_of_birth",
+      "place_of_birth",
+      "issued_by",
+      "document_number",
+      "personal_number"
+    ],
+    "warnings": [
+      "only 2 dates extracted out of 3 expected"
+    ],
+    "ocr_confidence": 0.84
+  },
+  "ocr_texts": [
+    "Adresse",
+    "74 espace Renault",
+    "98171 La Alexandrie",
+    "Piece /",
+    "Ly",
+    "Carte valable jusqu au",
+    "24.06.2027",
+    "delivree le",
+    "25.06.2017",
+    "P",
+    "par",
+    "Prefecture de Wagner-sur-Mer",
+    " Signaturcetectuoe &",
+    "Pp",
+    "TYiznetsut-Met $",
+    "p",
+    "(5) p"
+  ],
+  "mrz": {
+    "found": false,
+    "format": null,
+    "check_digits": null
+  },
+  "processing": {
+    "detection_method": null,
+    "document_detected": false,
+    "preprocessing_variant": "warped"
+  }
+}

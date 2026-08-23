@@ -1,0 +1,56 @@
+{
+  "document_type": null,
+  "fields": {
+    "last_name": null,
+    "first_name": null,
+    "date_of_birth": null,
+    "place_of_birth": null,
+    "date_of_issue": "08.10.2020",
+    "date_of_expiry": "07.10.2030",
+    "issued_by": null,
+    "document_number": null,
+    "personal_number": null
+  },
+  "validation": {
+    "missing_fields": [
+      "last_name",
+      "first_name",
+      "date_of_birth",
+      "place_of_birth",
+      "issued_by",
+      "document_number",
+      "personal_number"
+    ],
+    "warnings": [
+      "only 2 dates extracted out of 3 expected"
+    ],
+    "ocr_confidence": 0.96
+  },
+  "ocr_texts": [
+    "Adresse",
+    "64 halle Colas",
+    "21457 Lc Valentine",
+    ";fstve",
+    "Piece}",
+    "Carte valable jusqu au",
+    "07.10.2030",
+    "PP",
+    "delivree le",
+    "08.10.2020",
+    "par",
+    "Sous-prefecture de Pottier (60)",
+    "Signature de | autorite",
+    "FP",
+    "Patozp"
+  ],
+  "mrz": {
+    "found": false,
+    "format": null,
+    "check_digits": null
+  },
+  "processing": {
+    "detection_method": null,
+    "document_detected": false,
+    "preprocessing_variant": "warped"
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "document_type": null,
+  "fields": {
+    "last_name": null,
+    "first_name": null,
+    "date_of_birth": null,
+    "place_of_birth": null,
+    "date_of_issue": "06.07.2019",
+    "date_of_expiry": "05.07.2029",
+    "issued_by": null,
+    "document_number": null,
+    "personal_number": null
+  },
+  "validation": {
+    "missing_fields": [
+      "last_name",
+      "first_name",
+      "date_of_birth",
+      "place_of_birth",
+      "issued_by",
+      "document_number",
+      "personal_number"
+    ],
+    "warnings": [
+      "only 2 dates extracted out of 3 expected"
+    ],
+    "ocr_confidence": 0.71
+  },
+  "ocr_texts": [
+    "Adresse",
+    "35",
+    "cour Henriette Bourgeois",
+    "73864 Sainte Virginie",
+    "Piece",
+    "Carte valable jusqu au : 05.07.2029",
+    "delivree le",
+    "06.07.2019",
+    "par",
+    "Prefecture de Bouvet (61)",
+    "Signature de ] autorite :",
+    "SQp",
+    "Tp",
+    "pD",
+    "9p",
+    "Tpy",
+    "IRP",
+    "4p Bawvet",
+    "Tp",
+    "PP",
+    "Sp",
+    "S",
+    "fictive",
+    "t.ly/g8sf"
+  ],
+  "mrz": {
+    "found": false,
+    "format": null,
+    "check_digits": null
+  },
+  "processing": {
+    "detection_method": "minarea",
+    "document_detected": true,
+    "preprocessing_variant": "warped"
+  }
+}

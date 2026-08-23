@@ -1,0 +1,63 @@
+{
+  "document_type": null,
+  "fields": {
+    "last_name": null,
+    "first_name": null,
+    "date_of_birth": null,
+    "place_of_birth": null,
+    "date_of_issue": null,
+    "date_of_expiry": null,
+    "issued_by": null,
+    "document_number": null,
+    "personal_number": null
+  },
+  "validation": {
+    "missing_fields": [
+      "last_name",
+      "first_name",
+      "date_of_birth",
+      "place_of_birth",
+      "date_of_issue",
+      "date_of_expiry",
+      "issued_by",
+      "document_number",
+      "personal_number"
+    ],
+    "warnings": [
+      "only 0 dates extracted out of 3 expected"
+    ],
+    "ocr_confidence": null
+  },
+  "ocr_texts": [
+    "1P U B L !Q",
+    "U E",
+    "D",
+    "P | [",
+    "ARTE VATIONALE DIDENTHIEN\" : ZZGWSVM62",
+    "Nationulitc Pilean",
+    "Nom",
+    "Weber-Garnier",
+    "Piece/gs59",
+    "Frcnomis)",
+    "Alphonse",
+    "Serc ;",
+    "M",
+    "Ic ; 30,01.1945",
+    "Adambourg (84) [",
+    "Taille",
+    "1.86 m",
+    "Signaturc du titulaire",
+    "Nebetftaute",
+    "Louis"
+  ],
+  "mrz": {
+    "found": false,
+    "format": null,
+    "check_digits": null
+  },
+  "processing": {
+    "detection_method": "minarea",
+    "document_detected": true,
+    "preprocessing_variant": "warped"
+  }
+}

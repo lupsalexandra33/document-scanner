@@ -1,0 +1,418 @@
+{
+  "documents": 20,
+  "rows": [
+    {
+      "file": "07404c83-9a96-41da-8a4d-c3d5dc93fa67-ID_CARD_TD2_A-back",
+      "class": "ID_CARD_TD2_A",
+      "side": "back",
+      "detected": false,
+      "method": null,
+      "outcomes": {
+        "date_of_issue": "correct",
+        "date_of_expiry": "correct",
+        "issued_by": "reject"
+      }
+    },
+    {
+      "file": "074f9932-e13e-4c96-a150-95e87bc55060-PP_TD3_A-front",
+      "class": "PP_TD3_A",
+      "side": "front",
+      "detected": false,
+      "method": null,
+      "outcomes": {
+        "last_name": "wrong",
+        "first_name": "reject",
+        "date_of_birth": "correct",
+        "place_of_birth": "reject",
+        "date_of_issue": "correct",
+        "date_of_expiry": "correct",
+        "issued_by": "reject",
+        "document_number": "wrong"
+      }
+    },
+    {
+      "file": "129d98e3-0257-4868-a5a1-2a33d0362e78-ID_CARD_TD2_A-back",
+      "class": "ID_CARD_TD2_A",
+      "side": "back",
+      "detected": false,
+      "method": null,
+      "outcomes": {
+        "date_of_issue": "reject",
+        "date_of_expiry": "reject",
+        "issued_by": "reject"
+      }
+    },
+    {
+      "file": "14fdeec1-663a-4218-b78c-dd778cd71bd8-PP_TD3_A-front",
+      "class": "PP_TD3_A",
+      "side": "front",
+      "detected": true,
+      "method": "minarea",
+      "outcomes": {
+        "last_name": "missing",
+        "first_name": "missing",
+        "date_of_birth": "correct",
+        "place_of_birth": "missing",
+        "date_of_issue": "correct",
+        "date_of_expiry": "correct",
+        "issued_by": "missing",
+        "document_number": "missing"
+      }
+    },
+    {
+      "file": "1e016d0a-d4c9-4742-8805-202e157de8c6-ID_CARD_TD2_A-front",
+      "class": "ID_CARD_TD2_A",
+      "side": "front",
+      "detected": true,
+      "method": "minarea",
+      "outcomes": {
+        "last_name": "missing",
+        "first_name": "missing",
+        "date_of_birth": "missing",
+        "place_of_birth": "missing",
+        "document_number": "missing"
+      }
+    },
+    {
+      "file": "1fb42f00-3156-4c06-8e58-d096aeec5296-ID_CARD_TD2_A-back",
+      "class": "ID_CARD_TD2_A",
+      "side": "back",
+      "detected": true,
+      "method": "minarea",
+      "outcomes": {
+        "date_of_issue": "correct",
+        "date_of_expiry": "correct",
+        "issued_by": "missing"
+      }
+    },
+    {
+      "file": "275db83b-5b98-4a7d-9c86-f137dad32037-ID_CARD_TD2_A-front",
+      "class": "ID_CARD_TD2_A",
+      "side": "front",
+      "detected": true,
+      "method": "minarea",
+      "outcomes": {
+        "last_name": "missing",
+        "first_name": "missing",
+        "date_of_birth": "missing",
+        "place_of_birth": "missing",
+        "document_number": "missing"
+      }
+    },
+    {
+      "file": "341a96e0-15f6-4e97-bd8e-567cf84782bf-ID_CARD_TD2_A-front",
+      "class": "ID_CARD_TD2_A",
+      "side": "front",
+      "detected": true,
+      "method": "minarea",
+      "outcomes": {
+        "last_name": "missing",
+        "first_name": "missing",
+        "date_of_birth": "missing",
+        "place_of_birth": "missing",
+        "document_number": "missing"
+      }
+    },
+    {
+      "file": "3fe160d3-41d2-49cc-9d64-3ad28c70122f-ID_CARD_TD2_A-front",
+      "class": "ID_CARD_TD2_A",
+      "side": "front",
+      "detected": true,
+      "method": "minarea",
+      "outcomes": {
+        "last_name": "missing",
+        "first_name": "missing",
+        "date_of_birth": "wrong",
+        "place_of_birth": "missing",
+        "document_number": "missing"
+      }
+    },
+    {
+      "file": "46d5dae4-6172-4a4e-b85f-f5e4156dfc76-ID_CARD_TD2_A-back",
+      "class": "ID_CARD_TD2_A",
+      "side": "back",
+      "detected": false,
+      "method": null,
+      "outcomes": {
+        "date_of_issue": "correct",
+        "date_of_expiry": "correct",
+        "issued_by": "reject"
+      }
+    },
+    {
+      "file": "4f8bb30c-b290-43f1-9b88-16d0e3f4953d-ID_CARD_TD2_A-back",
+      "class": "ID_CARD_TD2_A",
+      "side": "back",
+      "detected": false,
+      "method": null,
+      "outcomes": {
+        "date_of_issue": "correct",
+        "date_of_expiry": "correct",
+        "issued_by": "reject"
+      }
+    },
+    {
+      "file": "6bf72bd5-fc2f-4513-b8c1-7bd237ceb32d-PP_TD3_A-front",
+      "class": "PP_TD3_A",
+      "side": "front",
+      "detected": true,
+      "method": "minarea",
+      "outcomes": {
+        "last_name": "missing",
+        "first_name": "missing",
+        "date_of_birth": "correct",
+        "place_of_birth": "missing",
+        "date_of_issue": "correct",
+        "date_of_expiry": "correct",
+        "issued_by": "missing",
+        "document_number": "missing"
+      }
+    },
+    {
+      "file": "9020fa2d-3b72-4cc6-8070-c34925555f17-PP_TD3_A-front",
+      "class": "PP_TD3_A",
+      "side": "front",
+      "detected": false,
+      "method": null,
+      "outcomes": {
+        "last_name": "reject",
+        "first_name": "reject",
+        "date_of_birth": "correct",
+        "place_of_birth": "reject",
+        "date_of_issue": "reject",
+        "date_of_expiry": "correct",
+        "issued_by": "reject",
+        "document_number": "reject"
+      }
+    },
+    {
+      "file": "9afefbd8-ff0e-4ff2-add3-5edaf4729dfe-PP_TD3_A-front",
+      "class": "PP_TD3_A",
+      "side": "front",
+      "detected": true,
+      "method": "minarea",
+      "outcomes": {
+        "last_name": "missing",
+        "first_name": "missing",
+        "date_of_birth": "correct",
+        "place_of_birth": "missing",
+        "date_of_issue": "missing",
+        "date_of_expiry": "wrong",
+        "issued_by": "missing",
+        "document_number": "missing"
+      }
+    },
+    {
+      "file": "bc0432be-1a70-4b05-8976-f03b8b6d60de-ID_CARD_TD2_A-back",
+      "class": "ID_CARD_TD2_A",
+      "side": "back",
+      "detected": false,
+      "method": null,
+      "outcomes": {
+        "date_of_issue": "correct",
+        "date_of_expiry": "correct",
+        "issued_by": "reject"
+      }
+    },
+    {
+      "file": "c8d93883-619b-415a-879d-49341bf11847-ID_CARD_TD2_A-front",
+      "class": "ID_CARD_TD2_A",
+      "side": "front",
+      "detected": true,
+      "method": "minarea",
+      "outcomes": {
+        "last_name": "missing",
+        "first_name": "missing",
+        "date_of_birth": "missing",
+        "place_of_birth": "missing",
+        "document_number": "missing"
+      }
+    },
+    {
+      "file": "d8064845-6372-4ee4-a37d-3743a3db14f2-ID_CARD_TD2_A-front",
+      "class": "ID_CARD_TD2_A",
+      "side": "front",
+      "detected": true,
+      "method": "minarea",
+      "outcomes": {
+        "last_name": "missing",
+        "first_name": "missing",
+        "date_of_birth": "missing",
+        "place_of_birth": "missing",
+        "document_number": "missing"
+      }
+    },
+    {
+      "file": "d8da9770-c397-4377-9c7d-53e12f41b94c-ID_CARD_TD2_A-back",
+      "class": "ID_CARD_TD2_A",
+      "side": "back",
+      "detected": false,
+      "method": null,
+      "outcomes": {
+        "date_of_issue": "correct",
+        "date_of_expiry": "correct",
+        "issued_by": "reject"
+      }
+    },
+    {
+      "file": "d94b7b03-1749-4d2c-8317-a8c23fad7228-ID_CARD_TD2_A-front",
+      "class": "ID_CARD_TD2_A",
+      "side": "front",
+      "detected": true,
+      "method": "minarea",
+      "outcomes": {
+        "last_name": "missing",
+        "first_name": "missing",
+        "date_of_birth": "missing",
+        "place_of_birth": "missing",
+        "document_number": "missing"
+      }
+    },
+    {
+      "file": "ebdb1686-f85e-4c11-a9a2-ac3698ee4da6-PP_TD3_A-front",
+      "class": "PP_TD3_A",
+      "side": "front",
+      "detected": true,
+      "method": "minarea",
+      "outcomes": {
+        "last_name": "missing",
+        "first_name": "missing",
+        "date_of_birth": "correct",
+        "place_of_birth": "missing",
+        "date_of_issue": "correct",
+        "date_of_expiry": "correct",
+        "issued_by": "missing",
+        "document_number": "missing"
+      }
+    }
+  ],
+  "totals": {
+    "correct": 27,
+    "reject": 17,
+    "wrong": 4,
+    "missing": 56
+  },
+  "per_field": {
+    "date_of_issue": {
+      "correct": 10,
+      "reject": 2,
+      "missing": 1,
+      "wrong": 0
+    },
+    "date_of_expiry": {
+      "correct": 11,
+      "reject": 1,
+      "wrong": 1,
+      "missing": 0
+    },
+    "issued_by": {
+      "reject": 8,
+      "missing": 5,
+      "correct": 0,
+      "wrong": 0
+    },
+    "last_name": {
+      "wrong": 1,
+      "missing": 11,
+      "reject": 1,
+      "correct": 0
+    },
+    "first_name": {
+      "reject": 2,
+      "missing": 11,
+      "correct": 0,
+      "wrong": 0
+    },
+    "date_of_birth": {
+      "correct": 6,
+      "missing": 6,
+      "wrong": 1,
+      "reject": 0
+    },
+    "place_of_birth": {
+      "reject": 2,
+      "missing": 11,
+      "correct": 0,
+      "wrong": 0
+    },
+    "document_number": {
+      "wrong": 1,
+      "missing": 11,
+      "reject": 1,
+      "correct": 0
+    }
+  },
+  "mrz": [
+    {
+      "candidates": 2,
+      "parsed": true,
+      "checks_passed": 2,
+      "checks_total": 3,
+      "file": "074f9932-e13e-4c96-a150-95e87bc55060-PP_TD3_A-front"
+    },
+    {
+      "candidates": 6,
+      "parsed": false,
+      "file": "14fdeec1-663a-4218-b78c-dd778cd71bd8-PP_TD3_A-front"
+    },
+    {
+      "candidates": 0,
+      "parsed": false,
+      "file": "1e016d0a-d4c9-4742-8805-202e157de8c6-ID_CARD_TD2_A-front"
+    },
+    {
+      "candidates": 0,
+      "parsed": false,
+      "file": "275db83b-5b98-4a7d-9c86-f137dad32037-ID_CARD_TD2_A-front"
+    },
+    {
+      "candidates": 0,
+      "parsed": false,
+      "file": "341a96e0-15f6-4e97-bd8e-567cf84782bf-ID_CARD_TD2_A-front"
+    },
+    {
+      "candidates": 1,
+      "parsed": false,
+      "file": "3fe160d3-41d2-49cc-9d64-3ad28c70122f-ID_CARD_TD2_A-front"
+    },
+    {
+      "candidates": 8,
+      "parsed": true,
+      "checks_passed": 3,
+      "checks_total": 3,
+      "file": "6bf72bd5-fc2f-4513-b8c1-7bd237ceb32d-PP_TD3_A-front"
+    },
+    {
+      "candidates": 2,
+      "parsed": true,
+      "checks_passed": 2,
+      "checks_total": 3,
+      "file": "9020fa2d-3b72-4cc6-8070-c34925555f17-PP_TD3_A-front"
+    },
+    {
+      "candidates": 1,
+      "parsed": false,
+      "file": "9afefbd8-ff0e-4ff2-add3-5edaf4729dfe-PP_TD3_A-front"
+    },
+    {
+      "candidates": 0,
+      "parsed": false,
+      "file": "c8d93883-619b-415a-879d-49341bf11847-ID_CARD_TD2_A-front"
+    },
+    {
+      "candidates": 0,
+      "parsed": false,
+      "file": "d8064845-6372-4ee4-a37d-3743a3db14f2-ID_CARD_TD2_A-front"
+    },
+    {
+      "candidates": 0,
+      "parsed": false,
+      "file": "d94b7b03-1749-4d2c-8317-a8c23fad7228-ID_CARD_TD2_A-front"
+    },
+    {
+      "candidates": 7,
+      "parsed": false,
+      "file": "ebdb1686-f85e-4c11-a9a2-ac3698ee4da6-PP_TD3_A-front"
+    }
+  ]
+}

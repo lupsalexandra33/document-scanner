@@ -17,7 +17,7 @@ against the same ground truth.
 
 Two sets are used, for different purposes.
 
-**[DocXPand-25k](https://github.com/QuickSign/docxpand)** = synthetic identity
+**[DocXPand-25k](https://github.com/QuickSign/docxpand)** - synthetic identity
 documents photographed on real backgrounds, with ground truth for both the
 document corners and every printed field. This is the main evaluation set,
 because it is the only one that makes the metrics measurable rather than
@@ -31,7 +31,7 @@ The full dataset is 17 GB in 12 archive parts. The script never stores them: it
 streams the parts straight into `tar` and writes only the document images, so
 disk usage stays in the tens of MB.
 
-**[MIDV-500](https://doi.org/10.18287/2412-6179-2019-43-5-818-824)** = video
+**[MIDV-500](https://doi.org/10.18287/2412-6179-2019-43-5-818-824)** - video
 frames of identity document specimens under different capture conditions. Kept
 as the robustness set, since it contains real degradation (motion blur, a hand
 occluding the border, cluttered surfaces) that a rendered dataset does not
@@ -59,6 +59,10 @@ document-scanner/
 ├── evaluate_docxpand.py     # IoU + field accuracy against ground truth
 ├── compare_variants.py      # compares preprocessing variants for OCR
 ├── compare_pipelines.py     # runs both pipelines and scores them together
+├── build_testset.py         # draws the fixed, independently chosen test set
+├── score_outputs.py         # scores saved outputs: correct/wrong/missing/reject
+├── evaluate_final.py        # full evaluation, both pipelines
+├── results_matrix.py        # document-by-field results grid
 ├── download_docxpand.py     # streams a DocXPand subset
 ├── download_dataset.py      # downloads the MIDV-500 subset
 ├── document_scanner.ipynb   # notebook: the geometric stage, step by step
@@ -66,9 +70,11 @@ document-scanner/
 ├── OCR_limitations.md       # OCR limitations observed in week 2
 ├── week3_report.md          # robustness, MRZ and measurement results
 ├── week4_report.md          # pretrained model results and comparison
+├── week5_report.md          # comparison, evaluation and conclusions
 ├── examples/                # before/after demonstration images
 ├── outputs/                 # sample JSON outputs (pipeline 1)
 ├── outputs_donut/           # sample JSON outputs (pipeline 2)
+├── outputs_week5/           # pipeline 1 outputs over the fixed test set
 └── data/                    # datasets (git-ignored, created by the scripts)
 ```
 
@@ -111,6 +117,17 @@ python3 evaluate_docxpand.py --detection-only    # geometry only, fast
 python3 evaluate_docxpand.py --limit 20          # full pipeline with OCR
 python3 evaluate.py --detection-only             # detection on MIDV
 python3 compare_pipelines.py --limit 3           # both pipelines, same images
+```
+
+The week 5 evaluation runs in three steps. Extraction is done one process per
+image because running OCR inside a loop exhausts memory on an 8 GB machine;
+scoring is then a separate, fast pass over the saved results.
+
+```bash
+python3 build_testset.py --size 20               # fixed sample, seeded
+# extract one process per image, into outputs_week5/
+python3 score_outputs.py --dir outputs_week5     # four-outcome scoring
+python3 results_matrix.py                        # document-by-field grid
 ```
 
 ## Results
@@ -157,8 +174,30 @@ Used without fine-tuning it reads the document correctly but attaches values to
 the wrong fields, asked for a surname it returned the MRZ string, and asked for
 a date of birth it returned the surname.
 
-Full results are in [week3_report.md](week3_report.md) and
-[week4_report.md](week4_report.md), including negative findings: a false
-positive on a background object, and perspective correction slightly *reducing*
-accuracy on DocXPand. OCR limitations observed earlier are in
+**Classic pipeline on a fixed, independently drawn test set** (20 documents,
+104 fields, stratified by class and side, seeded):
+
+| outcome | share |
+|---------|-------|
+| correct | 26% |
+| wrong | 4% |
+| missing | 54% |
+| reject | 16% |
+
+Three derived figures say more than the accuracy does: an **error rate of 4%**,
+an **abstention rate of 70%**, and **87% precision when it does answer** (27 of
+31). The pipeline is not so much accurate as cautious.
+
+The fields split cleanly: 27 of the 31 correct values are dates, and names,
+places, authorities and document numbers score zero across all 20 documents.
+A date has a fixed pattern a regex matches in any layout; the others need to be
+located on the page. Rule-based extraction works exactly as far as regular
+expressions reach.
+
+Full results are in [week3_report.md](week3_report.md),
+[week4_report.md](week4_report.md) and [week5_report.md](week5_report.md),
+including several negative findings: a false positive on a background object,
+perspective correction *reducing* extraction accuracy on DocXPand, and the MRZ
+being read end to end on only 3 of 13 documents despite the parser itself being
+correct. OCR limitations observed earlier are in
 [OCR_limitations.md](OCR_limitations.md).

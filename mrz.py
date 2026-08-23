@@ -1,22 +1,28 @@
+"""
+Supported formats:
+    TD3  passports        2 lines x 44 characters
+    TD2  ID cards         2 lines x 36 characters
+    TD1  ID cards         3 lines x 30 characters
+"""
 import re
 
 # characters that are legal in an MRZ line
 MRZ_CHARSET = re.compile(r'^[A-Z0-9<]+$')
 
+# (number of lines, nominal line length) -> format name
 FORMATS = {
     (2, 44): "TD3",
     (2, 36): "TD2",
     (3, 30): "TD1",
 }
 
+LENGTH_TOLERANCE = 4
+
 # weights cycle 7-3-1 across the characters being checked
 CHECK_WEIGHTS = (7, 3, 1)
 
 
 def char_value(char):
-    # ICAO 9303 character values: digits are themselves, letters are A=10..Z=35,
-    # and the filler '<' counts as zero.
-    
     if char.isdigit():
         return int(char)
     if char == "<":
@@ -31,13 +37,13 @@ def check_digit(field):
 
 
 def verify(field, expected):
-    # True if `expected` is the correct check digit for `field`
     if expected in ("", "<"):
         return None            # no check digit present, nothing to verify
     return check_digit(field) == expected
 
 
 def parse_date(yymmdd, kind="birth", current_year=2026):
+    # MRZ dates are YYMMDD with no century, so the century has to be inferred
     if not re.fullmatch(r'\d{6}', yymmdd):
         return None
     year, month, day = int(yymmdd[:2]), yymmdd[2:4], yymmdd[4:6]
@@ -52,7 +58,6 @@ def parse_date(yymmdd, kind="birth", current_year=2026):
 
 
 def parse_names(name_field):
-    # the name field is SURNAME<<GIVEN<NAMES, padded with '<'.
     parts = name_field.split("<<")
     surname = parts[0].replace("<", " ").strip()
     given = parts[1].replace("<", " ").strip() if len(parts) > 1 else ""
@@ -60,8 +65,7 @@ def parse_names(name_field):
 
 
 def find_mrz_lines(texts):
-    # pick the MRZ lines out of a list of OCR text fragments.
-
+    # pick the MRZ lines out of a list of OCR text fragments
     candidates = []
     for text in texts:
         cleaned = text.replace(" ", "").upper()
@@ -70,15 +74,57 @@ def find_mrz_lines(texts):
     return candidates
 
 
+def match_format(lines):
+    # find the format whose line length is closest to what OCR produced
+    if not lines:
+        return None, None
+    longest = max(len(line) for line in lines)
+    best = None
+    for (line_count, nominal), name in FORMATS.items():
+        if line_count != len(lines):
+            continue
+        distance = abs(longest - nominal)
+        if distance <= LENGTH_TOLERANCE and (best is None or distance < best[0]):
+            best = (distance, name, nominal)
+    return (best[1], best[2]) if best else (None, None)
+
+
+def select_lines(candidates):
+    if len(candidates) <= 1:
+        return candidates
+
+    ordered = sorted(candidates, key=len, reverse=True)
+
+    # try the plausible groupings, best first
+    for size in (2, 3):
+        for start in range(len(ordered) - size + 1):
+            group = ordered[start:start + size]
+            parsed = _parse_exact(group)
+            if parsed and any(v is True for v in parsed["checks"].values()):
+                # restore the order they appeared in, line order carries meaning
+                return sorted(group, key=lambda l: candidates.index(l))
+    return candidates
+
+
 def parse(lines):
-    # parse MRZ lines into fields. Returns None if the format is unknown.
+    # parse MRZ lines into fields, selecting the real MRZ from OCR noise
+    if not lines:
+        return None
+    return _parse_exact(select_lines([l.strip().upper() for l in lines if l.strip()]))
+
+
+def _parse_exact(lines):
+    # parse an exact set of MRZ lines. Returns None if the format is unknown
     lines = [l.strip().upper() for l in lines if l.strip()]
     if not lines:
         return None
 
-    fmt = FORMATS.get((len(lines), len(lines[0])))
+    fmt, nominal = match_format(lines)
     if fmt is None:
         return None
+
+    # pad short lines back to nominal length so the fixed offsets still line up
+    lines = [line.ljust(nominal, "<")[:nominal] for line in lines]
 
     result = {"format": fmt, "checks": {}}
 

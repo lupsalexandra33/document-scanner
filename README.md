@@ -63,6 +63,8 @@ document-scanner/
 ├── score_outputs.py         # scores saved outputs: correct/wrong/missing/reject
 ├── evaluate_final.py        # full evaluation, both pipelines
 ├── results_matrix.py        # document-by-field results grid
+├── app.py                   # Streamlit demo: both pipelines, side by side
+├── .streamlit/config.toml   # app theme
 ├── download_docxpand.py     # streams a DocXPand subset
 ├── download_dataset.py      # downloads the MIDV-500 subset
 ├── document_scanner.ipynb   # notebook: the geometric stage, step by step
@@ -71,6 +73,7 @@ document-scanner/
 ├── week3_report.md          # robustness, MRZ and measurement results
 ├── week4_report.md          # pretrained model results and comparison
 ├── week5_report.md          # comparison, evaluation and conclusions
+├── final_report.md          # full write-up of the project
 ├── examples/                # before/after demonstration images
 ├── outputs/                 # sample JSON outputs (pipeline 1)
 ├── outputs_donut/           # sample JSON outputs (pipeline 2)
@@ -95,6 +98,27 @@ pip install -r requirements.txt
 ```
 
 Pipeline 2 downloads its model (~800 MB) on first use.
+
+## Demo application
+
+```bash
+pip install streamlit
+streamlit run app.py
+```
+
+Upload a document image, pick a preprocessing variant and a pipeline, and the
+app shows each stage: the localised document, what OCR receives, the raw text,
+the extracted JSON and the validation warnings. Both pipelines can be run side
+by side.
+
+Donut takes roughly 25 seconds per field on CPU and needs about 1 GB of memory,
+so the sidebar limits which fields it is asked about. Running both pipelines at
+once loads two models simultaneously, on a machine with 8 GB that can fail, so
+run them separately if the app is killed.
+
+Selecting the `raw` preprocessing variant skips geometric correction entirely.
+On DocXPand that measured slightly *better* than the corrected version, so it is
+a reasonable default for the demo.
 
 ## Usage
 
@@ -194,7 +218,8 @@ A date has a fixed pattern a regex matches in any layout; the others need to be
 located on the page. Rule-based extraction works exactly as far as regular
 expressions reach.
 
-Full results are in [week3_report.md](week3_report.md),
+The full write-up is in [final_report.md](final_report.md). Per-week results are
+in [week3_report.md](week3_report.md),
 [week4_report.md](week4_report.md) and [week5_report.md](week5_report.md),
 including several negative findings: a false positive on a background object,
 perspective correction *reducing* extraction accuracy on DocXPand, and the MRZ

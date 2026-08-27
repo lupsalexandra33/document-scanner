@@ -1,0 +1,13 @@
+# Streamlit theme. Colours here drive the whole app: widgets, links, headers.
+[theme]
+primaryColor = "#d6336c"              # buttons, sliders, active states
+backgroundColor = "#fff5f8"           # page background
+secondaryBackgroundColor = "#ffe3ec"  # sidebar, expanders, code blocks
+textColor = "#3d2b33"
+font = "sans serif"
+
+[server]
+headless = true
+
+[client]
+toolbarMode = "minimal"

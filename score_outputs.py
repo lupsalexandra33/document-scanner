@@ -1,3 +1,21 @@
+"""
+score_outputs.py — score saved pipeline outputs against ground truth.
+
+Running OCR inside an evaluation loop exhausts memory on a machine with 8 GB,
+so extraction is done one process per image (each exits and releases its
+memory) and the JSON results are scored here afterwards. No OCR runs in this
+script, so it finishes in seconds and can be re-run freely as the scoring rules
+change.
+
+Outcomes are split four ways rather than three:
+
+    correct   the value matches ground truth
+    wrong     a value was produced and it does not match
+    missing   the document was localised, but no value was found for this field
+    reject    the document was never localised, so extraction never ran
+
+    python score_outputs.py --dir outputs_week5
+"""
 import argparse
 import glob
 import json
@@ -12,8 +30,8 @@ OUTCOMES = ("correct", "wrong", "missing", "reject")
 
 
 def normalise(text):
-    # strip accents, case and punctuation — those differences are formatting,
-    # not extraction errors ('MARECHAL DUBOIS' vs 'Maréchal-Dubois')
+    """Strip accents, case and punctuation — those differences are formatting,
+    not extraction errors ('MARECHAL DUBOIS' vs 'Maréchal-Dubois')."""
     if text is None:
         return None
     text = unicodedata.normalize("NFKD", str(text))
@@ -58,7 +76,11 @@ def score_mrz(result, ground_truth, image_path):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--dir", default="outputs_week5")
+    parser.add_argument("--dir", default="outputs_week5",
+                        help="classic pipeline outputs")
+    parser.add_argument("--donut-dir", default=None,
+                        help="Donut outputs over the same test set; when given, "
+                             "both pipelines are scored side by side")
     parser.add_argument("--testset", default="testset.json")
     parser.add_argument("--labels", default=None)
     parser.add_argument("--out", default="final_evaluation.json")
@@ -151,6 +173,62 @@ def main():
             checks = sum(m.get("checks_total", 0) for m in parsed)
             print(f"check digits passed:          {passed}/{checks}")
 
+    # second pipeline, same test set
+    comparison = None
+    if args.donut_dir and os.path.isdir(args.donut_dir):
+        donut_tally = defaultdict(int)
+        donut_fields = defaultdict(lambda: defaultdict(int))
+        donut_docs = 0
+
+        for output_file in sorted(glob.glob(os.path.join(args.donut_dir, "*.json"))):
+            stem = os.path.basename(output_file).replace(".json", "")
+            image_path = image_paths.get(stem)
+            if image_path is None:
+                continue
+            result = json.load(open(output_file, encoding="utf-8"))
+            # Donut never uses detection, so nothing is ever rejected for it
+            outcomes = classify(result["fields"], ground_truth.fields(image_path), True)
+            for field, outcome in outcomes.items():
+                donut_tally[outcome] += 1
+                donut_fields[field][outcome] += 1
+            donut_docs += 1
+
+        donut_total = sum(donut_tally[o] for o in OUTCOMES)
+        if donut_total:
+            print(f"\n=== both pipelines, same {donut_docs} documents ===")
+            print(f"{'pipeline':10s} {'correct':>8s} {'wrong':>7s} {'missing':>8s} "
+                  f"{'reject':>7s} {'accuracy':>9s} {'abstain':>8s} {'precision':>10s}")
+
+            # restrict the classic figures to the same documents, so the two
+            # columns describe identical input
+            classic_tally = defaultdict(int)
+            donut_stems = {os.path.basename(f).replace(".json", "")
+                           for f in glob.glob(os.path.join(args.donut_dir, "*.json"))}
+            for row in rows:
+                if row["file"] not in donut_stems:
+                    continue
+                for outcome in row["outcomes"].values():
+                    classic_tally[outcome] += 1
+
+            for label, counts in (("classic", classic_tally), ("donut", donut_tally)):
+                subtotal = sum(counts[o] for o in OUTCOMES)
+                if not subtotal:
+                    continue
+                answered = counts["correct"] + counts["wrong"]
+                precision = f"{100*counts['correct']/answered:.0f}%" if answered else "-"
+                abstain = counts["missing"] + counts["reject"]
+                print(f"{label:10s} {counts['correct']:>8d} {counts['wrong']:>7d} "
+                      f"{counts['missing']:>8d} {counts['reject']:>7d} "
+                      f"{100*counts['correct']/subtotal:>8.0f}% "
+                      f"{100*abstain/subtotal:>7.0f}% {precision:>10s}")
+
+            comparison = {
+                "documents": donut_docs,
+                "classic": dict(classic_tally),
+                "donut": dict(donut_tally),
+                "donut_per_field": {k: dict(v) for k, v in donut_fields.items()},
+            }
+
     with open(args.out, "w", encoding="utf-8") as f:
         json.dump({
             "documents": len(rows),
@@ -158,6 +236,7 @@ def main():
             "totals": dict(tally),
             "per_field": {k: dict(v) for k, v in field_tally.items()},
             "mrz": mrz_rows,
+            "comparison": comparison,
         }, f, indent=2, ensure_ascii=False)
     print(f"\nsaved to {args.out}")
 

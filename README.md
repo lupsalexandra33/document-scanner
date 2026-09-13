@@ -61,6 +61,7 @@ document-scanner/
 ├── compare_pipelines.py     # runs both pipelines and scores them together
 ├── build_testset.py         # draws the fixed, independently chosen test set
 ├── score_outputs.py         # scores saved outputs: correct/wrong/missing/reject
+├── run_donut_testset.py     # runs pipeline 2 over the same fixed test set
 ├── evaluate_final.py        # full evaluation, both pipelines
 ├── results_matrix.py        # document-by-field results grid
 ├── app.py                   # Streamlit demo: both pipelines, side by side
@@ -78,6 +79,7 @@ document-scanner/
 ├── outputs/                 # sample JSON outputs (pipeline 1)
 ├── outputs_donut/           # sample JSON outputs (pipeline 2)
 ├── outputs_week5/           # pipeline 1 outputs over the fixed test set
+├── outputs_donut_week5/     # pipeline 2 outputs over the same test set
 └── data/                    # datasets (git-ignored, created by the scripts)
 ```
 
@@ -154,6 +156,16 @@ python3 score_outputs.py --dir outputs_week5     # four-outcome scoring
 python3 results_matrix.py                        # document-by-field grid
 ```
 
+To compare both pipelines on identical documents, run pipeline 2 over the same
+test set and score them together. Donut needs about 3 minutes per document on
+CPU, and is run one process per image because loading both models repeatedly in
+one process exhausts memory on an 8 GB machine. The run is resumable.
+
+```bash
+python3 run_donut_testset.py --limit 5
+python3 score_outputs.py --dir outputs_week5 --donut-dir outputs_donut_week5
+```
+
 ## Results
 
 **Document detection.** The week 1 detector looks for a contour that simplifies
@@ -183,40 +195,33 @@ truth:
 
 Measured on four card fronts with high detection quality (IoU 0.84–0.95):
 
-| pipeline | correct | wrong | missing | accuracy | avg time |
-|----------|---------|-------|---------|----------|----------|
-| classic (OCR + rules) | 6 | 2 | 12 | **30%** | 7 s |
-| Donut (DocVQA) | 2 | **18** | 0 | 10% | 181 s |
+Both pipelines over the **same five documents** from the fixed test set, asked
+for the same eight fields:
 
-The hand-written rules beat the pretrained model here, which is the opposite of
-the expected result, and the failure behaviour is close to opposite too. The
-classic pipeline either reads a document well or produces nothing at all, it
-was wrong twice and silent twelve times. Donut left nothing empty, getting 18 of
-20 fields wrong, because it has no way to decline a question.
+| | classic | Donut (DocVQA) |
+|---|---------|----------------|
+| correct | 4 | 1 |
+| wrong | **0** | **18** |
+| missing | 11 | 0 |
+| reject | 4 | 0 |
+| accuracy | 21% | 5% |
+| abstention | **79%** | **0%** |
+| **precision when it answers** | **100%** | **5%** |
+| time per document | 7 s | 181 s |
 
-Used without fine-tuning it reads the document correctly but attaches values to
-the wrong fields, asked for a surname it returned the MRZ string, and asked for
-a date of birth it returned the surname.
+The accuracy gap is four to one; the precision gap is twenty to one, and that is
+the figure that matters. The classic pipeline made four statements and all four
+were true; Donut made nineteen and one was true.
 
-**Classic pipeline on a fixed, independently drawn test set** (20 documents,
-104 fields, stratified by class and side, seeded):
+They fail in opposite ways. The classic pipeline has explicit paths for "no rule
+matched" and "no document was localised", so it declines four times in five and
+is right every time it commits. Donut has no mechanism for declining; every
+question produces an answer, and it returns no confidence score, so nothing
+downstream can filter them.
 
-| outcome | share |
-|---------|-------|
-| correct | 26% |
-| wrong | 4% |
-| missing | 54% |
-| reject | 16% |
-
-Three derived figures say more than the accuracy does: an **error rate of 4%**,
-an **abstention rate of 70%**, and **87% precision when it does answer** (27 of
-31). The pipeline is not so much accurate as cautious.
-
-The fields split cleanly: 27 of the 31 correct values are dates, and names,
-places, authorities and document numbers score zero across all 20 documents.
-A date has a fixed pattern a regex matches in any layout; the others need to be
-located on the page. Rule-based extraction works exactly as far as regular
-expressions reach.
+Used without fine-tuning it reads the document correctly but misfiles what it
+read: asked for a surname it returned the MRZ string, asked for a date of birth
+it returned the surname.
 
 The full write-up is in [final_report.md](final_report.md). Per-week results are
 in [week3_report.md](week3_report.md),

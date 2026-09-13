@@ -1,4 +1,4 @@
-# Document Scanner & Verifier — Final Report
+# Document Scanner & Verifier - Final Report
 
 A comparison of two approaches to reading identity documents: a classic
 computer-vision pipeline built from OpenCV, OCR and hand-written rules, and a
@@ -267,28 +267,41 @@ instead of 44.
 
 ### Classic versus pretrained
 
+The week 4 comparison used four images chosen by detection quality, while the
+classic pipeline was later evaluated on the seeded stratified test set: two
+different samples. The figures below fix that: both pipelines run over the same
+five documents drawn from the fixed test set, asked for the same eight fields,
+scored against the same ground truth.
+
 | | classic | Donut (DocVQA) |
 |---|---------|----------------|
-| accuracy | 30% | 10% |
-| wrong answers | 2 of 20 fields | 18 of 20 fields |
-| abstention | 70% | 0% |
+| correct | 4 | 1 |
+| wrong | **0** | **18** |
+| missing | 11 | 0 |
+| reject | 4 | 0 |
+| accuracy | 21% | 5% |
+| abstention | **79%** | **0%** |
+| **precision when it answers** | **100%** (4/4) | **5%** (1/19) |
 | time per document | 7 s | 181 s |
 | confidence score | yes (per OCR region) | none |
 
-The hand-written rules beat the pretrained model by a factor of three and run
-twenty-six times faster, the opposite of the expected result.
+The accuracy gap is four to one. The precision gap is twenty to one, and it is
+the figure that matters: **the classic pipeline made four statements and all
+four were true; Donut made nineteen and one was true.**
 
-**The failure modes are close to opposite.** The classic pipeline declines seven
-times in ten and is right 87% of the time it commits. Donut never declines, it
-has no mechanism to, and was wrong on 18 of 20 fields.
+The two fail in opposite ways. The classic pipeline declines four times out of
+five, it has explicit paths for "no rule matched" and "no document was
+localised", and is right every time it commits. Donut never declines, because
+it has no mechanism to: every question produces an answer whether or not the
+information is on the page.
 
 Its dominant failure is **misalignment rather than blindness**:
 
 | field | ground truth | Donut answered |
 |-------|--------------|----------------|
-| document_number | XQ6D4PW94 | `xq6d4pw94` - correct |
-| last_name | Maréchal-Dubois | `xq6d4pw948pil5011287` - the MRZ string |
-| date_of_birth | 28.11.1950 | `marchal-dubois` - the surname |
+| document_number | XQ6D4PW94 | `xq6d4pw94` — correct |
+| last_name | Maréchal-Dubois | `xq6d4pw948pil5011287` — the MRZ string |
+| date_of_birth | 28.11.1950 | `marchal-dubois` — the surname |
 
 On another document, asked for a given name it answered `kaster`, a garbled
 version of the surname, which the classic pipeline read correctly as `KOSTER`.

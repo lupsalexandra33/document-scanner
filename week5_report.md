@@ -158,21 +158,35 @@ instead of 44.
 
 ## 6. Comparison with the pretrained pipeline
 
-From week 4, both pipelines on the same images:
+The week 4 comparison used four images chosen by detection quality, while this
+evaluation uses the seeded test set: two different samples, so the pipelines
+were never scored on identical input. `run_donut_testset.py` closes that gap by
+running Donut over the same `testset.json`, one process per image.
+
+Both pipelines over the same five documents, same eight fields, same ground
+truth:
 
 | | classic | Donut (DocVQA) |
 |---|---------|----------------|
-| accuracy | 30% | 10% |
-| error rate | low | 90% of answers |
-| abstention | 70% | 0% |
+| correct | 4 | 1 |
+| wrong | **0** | **18** |
+| missing | 11 | 0 |
+| reject | 4 | 0 |
+| accuracy | 21% | 5% |
+| abstention | **79%** | **0%** |
+| **precision when it answers** | **100%** (4/4) | **5%** (1/19) |
 | time per document | 7 s | 181 s |
 
-The two fail in opposite ways. The classic pipeline declines seven times out of
-ten and is right 87% of the time it commits. Donut never declines, it has no
-mechanism to, and was wrong on 18 of 20 fields. Its dominant failure is
-misalignment rather than blindness: asked for a surname it returned the MRZ
-string, asked for a birth date it returned the surname. It reads the document
-and misfiles what it read.
+The accuracy gap is four to one; the precision gap is twenty to one, and that is
+the figure that matters. **The classic pipeline made four statements and all
+four were true. Donut made nineteen and one was true.**
+
+They fail in opposite ways. The classic pipeline has explicit paths for "no rule
+matched" and "no document was localised", so it declines four times in five and
+is right every time it commits. Donut has no mechanism for declining, every
+question produces an answer. Its dominant failure is misalignment rather than
+blindness: asked for a surname it returned the MRZ string, asked for a birth
+date it returned the surname. It reads the document and misfiles what it read.
 
 Donut also returns no confidence score, so its answers cannot be filtered by
 certainty the way OCR results can.

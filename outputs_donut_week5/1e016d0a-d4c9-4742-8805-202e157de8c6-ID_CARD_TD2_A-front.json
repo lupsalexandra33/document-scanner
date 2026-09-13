@@ -1,0 +1,36 @@
+{
+  "document_type": null,
+  "fields": {
+    "last_name": "xaver",
+    "first_name": "ne 426mz31971 2209209 2409272",
+    "date_of_birth": "20091922",
+    "place_of_birth": "new 06 m7319712209209<2409272",
+    "date_of_issue": "may 06 m7319712209209<2409272",
+    "date_of_expiry": "we 426m2319712209209<2409272",
+    "issued_by": "x",
+    "document_number": "pvt",
+    "personal_number": null
+  },
+  "validation": {
+    "missing_fields": [
+      "personal_number"
+    ],
+    "warnings": [],
+    "ocr_confidence": null
+  },
+  "model": {
+    "name": "naver-clova-ix/donut-base-finetuned-docvqa",
+    "questions_asked": 8,
+    "seconds": 188.3,
+    "raw_answers": {
+      "last_name": "xaver",
+      "first_name": "ne 426mz31971 2209209 2409272",
+      "date_of_birth": "20091922",
+      "place_of_birth": "new 06 m7319712209209<2409272",
+      "date_of_issue": "may 06 m7319712209209<2409272",
+      "date_of_expiry": "we 426m2319712209209<2409272",
+      "issued_by": "x",
+      "document_number": "pvt"
+    }
+  }
+}

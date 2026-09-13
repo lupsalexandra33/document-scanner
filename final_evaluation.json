@@ -414,5 +414,47 @@
       "parsed": false,
       "file": "ebdb1686-f85e-4c11-a9a2-ac3698ee4da6-PP_TD3_A-front"
     }
-  ]
+  ],
+  "comparison": {
+    "documents": 5,
+    "classic": {
+      "correct": 4,
+      "reject": 4,
+      "missing": 11,
+      "wrong": 0
+    },
+    "donut": {
+      "wrong": 18,
+      "correct": 1,
+      "missing": 0,
+      "reject": 0
+    },
+    "donut_per_field": {
+      "date_of_issue": {
+        "wrong": 3
+      },
+      "date_of_expiry": {
+        "wrong": 3
+      },
+      "issued_by": {
+        "wrong": 3
+      },
+      "last_name": {
+        "wrong": 2
+      },
+      "first_name": {
+        "wrong": 2
+      },
+      "date_of_birth": {
+        "correct": 1,
+        "wrong": 1
+      },
+      "place_of_birth": {
+        "wrong": 2
+      },
+      "document_number": {
+        "wrong": 2
+      }
+    }
+  }
 }

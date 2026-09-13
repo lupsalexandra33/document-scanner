@@ -1,0 +1,36 @@
+{
+  "document_type": null,
+  "fields": {
+    "last_name": "pan southern manufactured",
+    "first_name": "pat southern states",
+    "date_of_birth": "15.03.2008",
+    "place_of_birth": "italy toxicity",
+    "date_of_issue": "7 days monthse reuniter",
+    "date_of_expiry": "15.03.2008",
+    "issued_by": "states",
+    "document_number": "05731",
+    "personal_number": null
+  },
+  "validation": {
+    "missing_fields": [
+      "personal_number"
+    ],
+    "warnings": [],
+    "ocr_confidence": null
+  },
+  "model": {
+    "name": "naver-clova-ix/donut-base-finetuned-docvqa",
+    "questions_asked": 8,
+    "seconds": 202.1,
+    "raw_answers": {
+      "last_name": "pan southern manufactured",
+      "first_name": "pat southern states",
+      "date_of_birth": "15 03 2008",
+      "place_of_birth": "italy toxicity",
+      "date_of_issue": "7 days monthse reuniter",
+      "date_of_expiry": "15/03/2008",
+      "issued_by": "states",
+      "document_number": "05731"
+    }
+  }
+}

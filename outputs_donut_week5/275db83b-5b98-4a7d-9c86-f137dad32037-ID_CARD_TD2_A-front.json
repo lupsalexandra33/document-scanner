@@ -1,0 +1,36 @@
+{
+  "document_type": null,
+  "fields": {
+    "last_name": "americane",
+    "first_name": "americane",
+    "date_of_birth": "june 2001",
+    "place_of_birth": "atlantic university",
+    "date_of_issue": "june 2001",
+    "date_of_expiry": "june 2001",
+    "issued_by": "nationality please",
+    "document_number": "lf108pk87dt",
+    "personal_number": null
+  },
+  "validation": {
+    "missing_fields": [
+      "personal_number"
+    ],
+    "warnings": [],
+    "ocr_confidence": null
+  },
+  "model": {
+    "name": "naver-clova-ix/donut-base-finetuned-docvqa",
+    "questions_asked": 8,
+    "seconds": 190.5,
+    "raw_answers": {
+      "last_name": "americane",
+      "first_name": "americane",
+      "date_of_birth": "june 2001",
+      "place_of_birth": "atlantic university",
+      "date_of_issue": "june 2001",
+      "date_of_expiry": "june 2001",
+      "issued_by": "nationality please",
+      "document_number": "lf108pk87dt"
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "document_type": null,
+  "fields": {
+    "last_name": "g3r5pa334ga12701057f3204120",
+    "first_name": "paulde launary",
+    "date_of_birth": "may 28 omaha",
+    "place_of_birth": "margarinea",
+    "date_of_issue": "february 11, 1972",
+    "date_of_expiry": "4th/29/85",
+    "issued_by": "g3r5pa334ga12701057f3204120",
+    "document_number": "p-galdelaunay",
+    "personal_number": null
+  },
+  "validation": {
+    "missing_fields": [
+      "personal_number"
+    ],
+    "warnings": [],
+    "ocr_confidence": null
+  },
+  "model": {
+    "name": "naver-clova-ix/donut-base-finetuned-docvqa",
+    "questions_asked": 8,
+    "seconds": 167.9,
+    "raw_answers": {
+      "last_name": "g3r5pa334ga12701057f3204120",
+      "first_name": "paulde launary",
+      "date_of_birth": "may 28 omaha",
+      "place_of_birth": "margarinea",
+      "date_of_issue": "february 11, 1972",
+      "date_of_expiry": "4th/29/85",
+      "issued_by": "g3r5pa334ga12701057f3204120",
+      "document_number": "p-galdelaunay"
+    }
+  }
+}

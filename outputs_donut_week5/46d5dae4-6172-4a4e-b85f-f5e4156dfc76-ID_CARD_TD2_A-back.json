@@ -1,0 +1,36 @@
+{
+  "document_type": null,
+  "fields": {
+    "last_name": "minisere des allaires",
+    "first_name": "ministere des affairs",
+    "date_of_birth": "06.11.2013",
+    "place_of_birth": "university of twitz",
+    "date_of_issue": "august 16",
+    "date_of_expiry": "june 1967",
+    "issued_by": "university",
+    "document_number": "ministure des affairs",
+    "personal_number": null
+  },
+  "validation": {
+    "missing_fields": [
+      "personal_number"
+    ],
+    "warnings": [],
+    "ocr_confidence": null
+  },
+  "model": {
+    "name": "naver-clova-ix/donut-base-finetuned-docvqa",
+    "questions_asked": 8,
+    "seconds": 164.1,
+    "raw_answers": {
+      "last_name": "minisere des allaires",
+      "first_name": "ministere des affairs",
+      "date_of_birth": "06-11-2013",
+      "place_of_birth": "university of twitz",
+      "date_of_issue": "august 16",
+      "date_of_expiry": "june 1967",
+      "issued_by": "university",
+      "document_number": "ministure des affairs"
+    }
+  }
+}

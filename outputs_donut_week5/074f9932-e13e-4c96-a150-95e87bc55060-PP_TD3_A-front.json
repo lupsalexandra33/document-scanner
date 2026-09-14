@@ -1,0 +1,36 @@
+{
+  "document_type": null,
+  "fields": {
+    "last_name": "mary",
+    "first_name": "mary",
+    "date_of_birth": "18:10.943",
+    "place_of_birth": "6",
+    "date_of_issue": "17.05.2017",
+    "date_of_expiry": "16.05.2027",
+    "issued_by": "authority (9)",
+    "document_number": "p<galmary <<nicolas<martin<emile<alfred<<<<",
+    "personal_number": null
+  },
+  "validation": {
+    "missing_fields": [
+      "personal_number"
+    ],
+    "warnings": [],
+    "ocr_confidence": null
+  },
+  "model": {
+    "name": "naver-clova-ix/donut-base-finetuned-docvqa",
+    "questions_asked": 8,
+    "seconds": 163.5,
+    "raw_answers": {
+      "last_name": "mary",
+      "first_name": "mary",
+      "date_of_birth": "18:10.943",
+      "place_of_birth": "6",
+      "date_of_issue": "17.05.2017",
+      "date_of_expiry": "16.05.2027",
+      "issued_by": "authority (9)",
+      "document_number": "p<galmary <<nicolas<martin<emile<alfred<<<<"
+    }
+  }
+}

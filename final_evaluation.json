@@ -416,44 +416,48 @@
     }
   ],
   "comparison": {
-    "documents": 5,
+    "documents": 20,
     "classic": {
-      "correct": 4,
-      "reject": 4,
-      "missing": 11,
-      "wrong": 0
+      "correct": 27,
+      "reject": 17,
+      "wrong": 4,
+      "missing": 56
     },
     "donut": {
-      "wrong": 18,
-      "correct": 1,
+      "wrong": 86,
+      "correct": 18,
       "missing": 0,
       "reject": 0
     },
     "donut_per_field": {
       "date_of_issue": {
-        "wrong": 3
+        "wrong": 10,
+        "correct": 3
       },
       "date_of_expiry": {
-        "wrong": 3
+        "wrong": 8,
+        "correct": 5
       },
       "issued_by": {
-        "wrong": 3
+        "wrong": 13
       },
       "last_name": {
-        "wrong": 2
+        "correct": 2,
+        "wrong": 11
       },
       "first_name": {
-        "wrong": 2
+        "wrong": 13
       },
       "date_of_birth": {
-        "correct": 1,
-        "wrong": 1
+        "wrong": 7,
+        "correct": 6
       },
       "place_of_birth": {
-        "wrong": 2
+        "wrong": 11,
+        "correct": 2
       },
       "document_number": {
-        "wrong": 2
+        "wrong": 13
       }
     }
   }

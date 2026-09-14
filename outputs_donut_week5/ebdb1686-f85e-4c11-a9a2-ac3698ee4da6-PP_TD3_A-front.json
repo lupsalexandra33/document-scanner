@@ -1,0 +1,36 @@
+{
+  "document_type": null,
+  "fields": {
+    "last_name": "gal",
+    "first_name": "papper-johen, jost",
+    "date_of_birth": "14/228",
+    "place_of_birth": "14928 merle",
+    "date_of_issue": "01.03.1979",
+    "date_of_expiry": "14.28.97",
+    "issued_by": "authority",
+    "document_number": "gp2t40b120gal7901036m2901064",
+    "personal_number": null
+  },
+  "validation": {
+    "missing_fields": [
+      "personal_number"
+    ],
+    "warnings": [],
+    "ocr_confidence": null
+  },
+  "model": {
+    "name": "naver-clova-ix/donut-base-finetuned-docvqa",
+    "questions_asked": 8,
+    "seconds": 174.5,
+    "raw_answers": {
+      "last_name": "gal",
+      "first_name": "papper-johen, jost",
+      "date_of_birth": "14/228",
+      "place_of_birth": "14928 merle",
+      "date_of_issue": "01.03.1979",
+      "date_of_expiry": "14/28/97",
+      "issued_by": "authority",
+      "document_number": "gp2t40b120gal7901036m2901064"
+    }
+  }
+}

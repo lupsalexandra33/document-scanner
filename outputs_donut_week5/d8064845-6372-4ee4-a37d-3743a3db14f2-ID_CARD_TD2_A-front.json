@@ -1,0 +1,36 @@
+{
+  "document_type": null,
+  "fields": {
+    "last_name": "janue 1.74",
+    "first_name": "j.y.g.st",
+    "date_of_birth": "13.12.1951",
+    "place_of_birth": "t.ly/98st",
+    "date_of_issue": "june 13 12, 1951",
+    "date_of_expiry": "13.12.1951",
+    "issued_by": "idpilfrat",
+    "document_number": "ii",
+    "personal_number": null
+  },
+  "validation": {
+    "missing_fields": [
+      "personal_number"
+    ],
+    "warnings": [],
+    "ocr_confidence": null
+  },
+  "model": {
+    "name": "naver-clova-ix/donut-base-finetuned-docvqa",
+    "questions_asked": 8,
+    "seconds": 162.0,
+    "raw_answers": {
+      "last_name": "janue 1.74",
+      "first_name": "j.y.g.st",
+      "date_of_birth": "13 12 1951",
+      "place_of_birth": "t.ly/98st",
+      "date_of_issue": "june 13 12, 1951",
+      "date_of_expiry": "june 13 12 1951",
+      "issued_by": "idpilfrat",
+      "document_number": "ii"
+    }
+  }
+}

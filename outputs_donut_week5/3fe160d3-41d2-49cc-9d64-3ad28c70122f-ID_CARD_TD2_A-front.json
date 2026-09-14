@@ -1,0 +1,36 @@
+{
+  "document_type": null,
+  "fields": {
+    "last_name": "paszt2il335pil0301154f3005202",
+    "first_name": "lafe",
+    "date_of_birth": "15.01.2003",
+    "place_of_birth": "nationalic picane",
+    "date_of_issue": "15.01.2003",
+    "date_of_expiry": "15.01.2003",
+    "issued_by": "date date 15.01.2003",
+    "document_number": "px512133",
+    "personal_number": null
+  },
+  "validation": {
+    "missing_fields": [
+      "personal_number"
+    ],
+    "warnings": [],
+    "ocr_confidence": null
+  },
+  "model": {
+    "name": "naver-clova-ix/donut-base-finetuned-docvqa",
+    "questions_asked": 8,
+    "seconds": 181.7,
+    "raw_answers": {
+      "last_name": "paszt2il335pil0301154f3005202",
+      "first_name": "lafe",
+      "date_of_birth": "15.01.2003",
+      "place_of_birth": "nationalic picane",
+      "date_of_issue": "15.01.2003",
+      "date_of_expiry": "15.01.2003",
+      "issued_by": "date date 15.01.2003",
+      "document_number": "px512133"
+    }
+  }
+}

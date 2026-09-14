@@ -1,0 +1,36 @@
+{
+  "document_type": null,
+  "fields": {
+    "last_name": "torres-hebert",
+    "first_name": "pagna researche",
+    "date_of_birth": "t. ly/98sf",
+    "place_of_birth": "leu de naissance/place",
+    "date_of_issue": "16.02.2015",
+    "date_of_expiry": "15.02.2025",
+    "issued_by": "authority (9)",
+    "document_number": "p<gal tornes<hebert<<<michelle<bernadettercath",
+    "personal_number": null
+  },
+  "validation": {
+    "missing_fields": [
+      "personal_number"
+    ],
+    "warnings": [],
+    "ocr_confidence": null
+  },
+  "model": {
+    "name": "naver-clova-ix/donut-base-finetuned-docvqa",
+    "questions_asked": 8,
+    "seconds": 375.8,
+    "raw_answers": {
+      "last_name": "torres-hebert",
+      "first_name": "pagna researche",
+      "date_of_birth": "t. ly/98sf",
+      "place_of_birth": "leu de naissance/place",
+      "date_of_issue": "16.02.2015",
+      "date_of_expiry": "15.02.2025",
+      "issued_by": "authority (9)",
+      "document_number": "p<gal tornes<hebert<<<michelle<bernadettercath"
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "document_type": null,
+  "fields": {
+    "last_name": "ministere des affairs",
+    "first_name": "adresse",
+    "date_of_birth": "25.08.2026",
+    "place_of_birth": "t.ty/98s",
+    "date_of_issue": "387",
+    "date_of_expiry": "25.08.2026",
+    "issued_by": "ministere des affairs",
+    "document_number": "please fctive",
+    "personal_number": null
+  },
+  "validation": {
+    "missing_fields": [
+      "personal_number"
+    ],
+    "warnings": [],
+    "ocr_confidence": null
+  },
+  "model": {
+    "name": "naver-clova-ix/donut-base-finetuned-docvqa",
+    "questions_asked": 8,
+    "seconds": 168.1,
+    "raw_answers": {
+      "last_name": "ministere des affairs",
+      "first_name": "adresse",
+      "date_of_birth": "25.08.2026",
+      "place_of_birth": "t.ty/98s",
+      "date_of_issue": "387",
+      "date_of_expiry": "25.08.2026",
+      "issued_by": "ministere des affairs",
+      "document_number": "please fctive"
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "document_type": null,
+  "fields": {
+    "last_name": "naurik",
+    "first_name": "naurizio, timan",
+    "date_of_birth": "08.04.1938",
+    "place_of_birth": "t.ly/98st",
+    "date_of_issue": "08.04.1938",
+    "date_of_expiry": "08.04.1938",
+    "issued_by": "noachm",
+    "document_number": "08 04.1938",
+    "personal_number": null
+  },
+  "validation": {
+    "missing_fields": [
+      "personal_number"
+    ],
+    "warnings": [],
+    "ocr_confidence": null
+  },
+  "model": {
+    "name": "naver-clova-ix/donut-base-finetuned-docvqa",
+    "questions_asked": 8,
+    "seconds": 163.8,
+    "raw_answers": {
+      "last_name": "naurik",
+      "first_name": "naurizio, timan",
+      "date_of_birth": "08 04.1938",
+      "place_of_birth": "t.ly/98st",
+      "date_of_issue": "08 04.1938",
+      "date_of_expiry": "08 04.1938",
+      "issued_by": "noachm",
+      "document_number": "08 04.1938"
+    }
+  }
+}

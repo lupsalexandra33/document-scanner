@@ -1,0 +1,36 @@
+{
+  "document_type": null,
+  "fields": {
+    "last_name": "paulte",
+    "first_name": "paulte",
+    "date_of_birth": "leroy (42)",
+    "place_of_birth": "leroy (42)",
+    "date_of_issue": "02.10.2018",
+    "date_of_expiry": "01.10.2028",
+    "issued_by": "authority",
+    "document_number": "p<galdescamps<<aimce<paulette<<<<<<<<",
+    "personal_number": null
+  },
+  "validation": {
+    "missing_fields": [
+      "personal_number"
+    ],
+    "warnings": [],
+    "ocr_confidence": null
+  },
+  "model": {
+    "name": "naver-clova-ix/donut-base-finetuned-docvqa",
+    "questions_asked": 8,
+    "seconds": 933.6,
+    "raw_answers": {
+      "last_name": "paulte",
+      "first_name": "paulte",
+      "date_of_birth": "leroy (42)",
+      "place_of_birth": "leroy (42)",
+      "date_of_issue": "02.10.2018",
+      "date_of_expiry": "01.10.2028",
+      "issued_by": "authority",
+      "document_number": "p<galdescamps<<aimce<paulette<<<<<<<<"
+    }
+  }
+}

@@ -195,33 +195,36 @@ truth:
 
 Measured on four card fronts with high detection quality (IoU 0.84–0.95):
 
-Both pipelines over the **same five documents** from the fixed test set, asked
-for the same eight fields:
+Both pipelines over the **same 20 documents** from the fixed test set, asked for
+the same fields and scored against the same ground truth:
 
 | | classic | Donut (DocVQA) |
 |---|---------|----------------|
-| correct | 4 | 1 |
-| wrong | **0** | **18** |
-| missing | 11 | 0 |
-| reject | 4 | 0 |
-| accuracy | 21% | 5% |
-| abstention | **79%** | **0%** |
-| **precision when it answers** | **100%** | **5%** |
+| correct | 27 | 18 |
+| wrong | **4** | **86** |
+| missing | 56 | 0 |
+| reject | 17 | 0 |
+| accuracy | 26% | 17% |
+| abstention | **70%** | **0%** |
+| **precision when it answers** | **87%** | **17%** |
 | time per document | 7 s | 181 s |
 
-The accuracy gap is four to one; the precision gap is twenty to one, and that is
-the figure that matters. The classic pipeline made four statements and all four
-were true; Donut made nineteen and one was true.
+The accuracy gap is three to two, but the precision gap is five to one, and that
+is the figure that matters: the classic pipeline made 4 false statements across
+the set, Donut made 86.
 
 They fail in opposite ways. The classic pipeline has explicit paths for "no rule
-matched" and "no document was localised", so it declines four times in five and
-is right every time it commits. Donut has no mechanism for declining; every
-question produces an answer, and it returns no confidence score, so nothing
-downstream can filter them.
+matched" and "no document was localised", so it declines on 70% of fields and is
+right on 87% of those it commits to. Donut has no mechanism for declining, and
+returns no confidence score, so nothing downstream can filter its answers.
 
 Used without fine-tuning it reads the document correctly but misfiles what it
 read: asked for a surname it returned the MRZ string, asked for a date of birth
 it returned the surname.
+
+Field counts differ from `documents × 8` because only fields actually printed on
+each document are scored; a card back carries three fields, a card front five,
+a passport data page all eight.
 
 The full write-up is in [final_report.md](final_report.md). Per-week results are
 in [week3_report.md](week3_report.md),

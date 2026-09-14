@@ -158,38 +158,55 @@ instead of 44.
 
 ## 6. Comparison with the pretrained pipeline
 
-The week 4 comparison used four images chosen by detection quality, while this
-evaluation uses the seeded test set: two different samples, so the pipelines
-were never scored on identical input. `run_donut_testset.py` closes that gap by
-running Donut over the same `testset.json`, one process per image.
-
-Both pipelines over the same five documents, same eight fields, same ground
-truth:
+The week 4 comparison used four images chosen by detection quality, while the
+classic pipeline was evaluated on the seeded stratified test set; two different
+samples, so the two were never scored on identical input.
+`run_donut_testset.py` closes that gap: it runs Donut over the same
+`testset.json`, one process per image, and the results below cover **all 20
+documents** with both pipelines asked for the same fields and scored against the
+same ground truth.
 
 | | classic | Donut (DocVQA) |
 |---|---------|----------------|
-| correct | 4 | 1 |
-| wrong | **0** | **18** |
-| missing | 11 | 0 |
-| reject | 4 | 0 |
-| accuracy | 21% | 5% |
-| abstention | **79%** | **0%** |
-| **precision when it answers** | **100%** (4/4) | **5%** (1/19) |
+| correct | 27 | 18 |
+| wrong | **4** | **86** |
+| missing | 56 | 0 |
+| reject | 17 | 0 |
+| accuracy | 26% | 17% |
+| abstention | **70%** | **0%** |
+| **precision when it answers** | **87%** (27/31) | **17%** (18/104) |
 | time per document | 7 s | 181 s |
+| confidence score | yes (per OCR region) | none |
 
-The accuracy gap is four to one; the precision gap is twenty to one, and that is
-the figure that matters. **The classic pipeline made four statements and all
-four were true. Donut made nineteen and one was true.**
+On the full set the accuracy gap narrows to three to two, but the precision gap
+does not move: **87% against 17%.** In absolute terms the classic pipeline made
+four false statements across 20 documents; Donut made **86**.
 
 They fail in opposite ways. The classic pipeline has explicit paths for "no rule
-matched" and "no document was localised", so it declines four times in five and
-is right every time it commits. Donut has no mechanism for declining, every
-question produces an answer. Its dominant failure is misalignment rather than
-blindness: asked for a surname it returned the MRZ string, asked for a birth
-date it returned the surname. It reads the document and misfiles what it read.
+matched" and "no document was localised", so it declines on 70% of fields and is
+right on 87% of the ones it commits to. Donut has no mechanism for declining,
+every question produces an answer whether or not the information is on the page,
+and it returns no confidence score, so nothing downstream can filter them.
 
-Donut also returns no confidence score, so its answers cannot be filtered by
-certainty the way OCR results can.
+Its dominant failure is **misalignment rather than blindness**:
+
+| field | ground truth | Donut answered |
+|-------|--------------|----------------|
+| document_number | XQ6D4PW94 | `xq6d4pw94` - correct |
+| last_name | Maréchal-Dubois | `xq6d4pw948pil5011287` - the MRZ string |
+| date_of_birth | 28.11.1950 | `marchal-dubois` - the surname |
+
+On another document, asked for a given name it answered `kaster`; a garbled
+version of the surname, which the classic pipeline read correctly as `KOSTER`.
+The information is seen, misfiled, and degraded.
+
+Two further patterns: the same string returned for several different questions
+(`ministere des affairs` for surname, given name, authority and document
+number), and occasional invented text (`margarine` as a surname).
+
+**The model reads the document but does not understand what is being asked of
+it.** The reading is already there, so fine-tuning on identity documents would
+likely fix the alignment.
 
 ## 7. Which is more suitable for production
 
@@ -238,7 +255,6 @@ reading. Integration was not attempted within the available time.
   more reliably; the reported MRZ figures are a lower bound.
 - **Extraction was run one process per image** for the same reason. This does
   not affect results, only how they were produced.
-- **Donut was compared on 4 documents, not the full 20** - 181 seconds per
-  document on CPU makes the full set impractical.
+- **Donut now covers the full 20-document test set.** At 181 s per document this takes about an hour on CPU; it is run one process per image because loading Donut and EasyOCR repeatedly in a single process exhausts 8 GB of memory.
 - **`issued_by` is rejected 8 times of 13**, meaning most of its documents were
   never localised. Its zero score reflects detection more than extraction.
